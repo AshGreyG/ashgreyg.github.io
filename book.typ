@@ -5,8 +5,12 @@
 #book-meta(
   title: "AshGrey & Huaier's Blog",
   summary: [
-    = AshGrey
-    #prefix-chapter("sample-page.typ")[这是一个中文测试]
+    = About
+      - #chapter("./me/aboutme.typ")[About Me]
+    = Notes
+      - #chapter(none)[Computer Science]
+        - #chapter(none)[Language]
+          - #chapter("./post/CS/Language/CPP.typ")[C++]
   ]
 )
 
