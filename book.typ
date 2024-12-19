@@ -6,7 +6,7 @@
   title: "AshGrey & Huaier's Blog",
   summary: [
     = AshGrey
-    #prefix-chapter("sample-page.typ")[Hello, typst]
+    #prefix-chapter("sample-page.typ")[这是一个中文测试]
   ]
 )
 

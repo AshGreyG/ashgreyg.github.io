@@ -5,3 +5,5 @@
 = Hello, typst
 
 Sample page
+
+这也是一个中文测试
