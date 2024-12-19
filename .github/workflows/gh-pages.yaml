@@ -64,7 +64,7 @@ jobs:
           cp CNAME dist/
           cd dist
           git init
-          git config user.email "no-reply@github.com"
+          git config user.email "ashgrey.huaier@gmail.com"
           git config user.name "owo-bot"
           git add *
           git commit -m "GitHub Actions Automated Deploy"
