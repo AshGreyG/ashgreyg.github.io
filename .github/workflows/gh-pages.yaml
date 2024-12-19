@@ -61,7 +61,6 @@ jobs:
       - name: Deploy to GitHub Pages
         env:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          # publish_dir: ./dist
         run: |
           cp CNAME dist/
           cd dist
