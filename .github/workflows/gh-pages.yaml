@@ -48,7 +48,7 @@ jobs:
           cargo install --git https://github.com/Myriad-Dreamin/shiroa --locked shiroa-cli
       - name: Build Book
         run: |
-          ~/.cargo/bin/shiroa build --font-path assets/fonts -w . -d ./dist .
+          ${{ CARGO_HOME }}/bin/shiroa build --font-path assets/fonts -w . -d ./dist .
       - name: Deploy to GitHub Pages
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
