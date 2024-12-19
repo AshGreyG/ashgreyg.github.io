@@ -1,0 +1,59 @@
+name: GitHub Pages
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    
+permissions:
+  pages: write
+  id-token: write
+  contents: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  build-gh-pages:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Download font assets
+        # use fonts in stable releases
+        run: |
+          mkdir -p assets/fonts/
+          curl -L https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.1.2/font-assets.tar.gz | tar -xvz -C assets/fonts
+          curl -L https://use.fontawesome.com/releases/v6.4.2/fontawesome-free-6.4.2-desktop.zip -o fontawesome-free-6.4.2-desktop.zip
+          unzip fontawesome-free-6.4.2-desktop.zip
+          cp -v -r fontawesome-free-6.4.2-desktop/otfs/* assets/fonts/
+      - name: Download & install shiroa
+        run: |
+          curl -L https://github.com/Myriad-Dreamin/shiroa/releases/download/v0.2.0-nightly5/shiroa-x86_64-unknown-linux-gnu.tar.gz | tar -xvz
+          chmod +x shiroa-x86_64-unknown-linux-gnu/bin/shiroa
+          sudo cp shiroa-x86_64-unknown-linux-gnu/bin/shiroa /usr/bin/shiroa
+      - name: Build Book
+        run: |
+          shiroa build --font-path assets/fonts -w . -d ./dist .
+      - name: Deploy to GitHub Pages
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          cp CNAME dist/
+          cd dist
+          git init
+          git config user.email "no-reply@github.com"
+          git config user.name "owo-bot"
+          git add *
+          git commit -m "GitHub Actions Automated Deploy"
+          git remote add origin "https://owo-bot:$GH_TOKEN@github.com/AshGreyG/Blog.git"
+          git branch -M main
+          git push -f -u origin main
