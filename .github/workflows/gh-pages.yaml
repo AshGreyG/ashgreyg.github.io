@@ -12,6 +12,8 @@ permissions:
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+
+
 concurrency:
   group: 'pages'
   cancel-in-progress: false
@@ -59,15 +61,17 @@ jobs:
           shiroa build --font-path assets/fonts -w . -d ./dist .
       - name: Deploy to GitHub Pages
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          # publish_dir: ./dist
         run: |
           cp CNAME dist/
           cd dist
           git init
-          git config user.email "ashgrey.huaier@gmail.com"
-          git config user.name "owo-bot"
+          git config user.email "no-reply@github.com"
+          git config user.name "Github Actions[bot]"
+          ssh-keygen -t rsa -b 4096 -C "$(git config user.email)" -f gh-pages -N ""
           git add *
           git commit -m "GitHub Actions Automated Deploy"
-          git remote add origin "https://owo-bot:$GH_TOKEN@github.com/AshGreyG/ashgreyg.github.io.git"
+          git remote add origin "git@github.com:AshGreyG/ashgreyg.github.io.git"
           git branch -M main
           git push -f -u origin main
