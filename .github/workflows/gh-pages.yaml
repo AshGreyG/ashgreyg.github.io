@@ -69,6 +69,8 @@ jobs:
           git config user.email "no-reply@github.com"
           git config user.name "Github Actions[bot]"
           ssh-keygen -t rsa -b 4096 -C "$(git config user.email)" -f gh-pages -N ""
+          cat gh-pages.pub
+          cat gh-pages
           git add *
           git commit -m "GitHub Actions Automated Deploy"
           git remote add origin "git@github.com:AshGreyG/ashgreyg.github.io.git"
