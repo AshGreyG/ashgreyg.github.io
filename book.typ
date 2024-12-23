@@ -10,6 +10,7 @@
 
     = index
       - #chapter("./post/CS/Language/_Language.typ")[Language]
+      - #chapter("./post/CS/Web3/_Web3.typ")[Web3]
 
     = Notes
       - #chapter(none)[Computer Science]
@@ -20,6 +21,9 @@
             - #chapter("./post/CS/Language/JS-basic-promise.typ")[Promise in JavaScript]
           - #chapter(none)[TypeScript]
             - #chapter("./post/CS/Language/TS-basic-grammar.typ")[Basic of TypeScript]
+        - #chapter(none)[Web 3]
+          - #chapter(none)[Blockchain]
+            - #chapter("./post/CS/Web3/Blockchain-basic-BTC.typ")[Blockchain: BTC]
   ]
 )
 
