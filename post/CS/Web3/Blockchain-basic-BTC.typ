@@ -70,3 +70,112 @@ In Bitcoin trade, asymmetric encryption is used in *signature*. For example, Ali
 Creating the private and public key needs a good source of randomness, under this situation, creating the same private and public key with other's is impossible.
 
 = 2 Data Structure
+
+= 2.1 Hash Pointer and Blockchain
+
+*Hash pointer* is a pointer to a memory block, but different from the traditional pointer, it stores the Hash value of the memory block. If the content of this memory block changes, the Hash value will also change.
+
+#align(center)[
+  #figure(
+    diagram(
+      node((0,0), shape: rect, stroke: 0.5pt, width: 30pt, height: 30pt, name: <memory>, fill: teal.lighten(80%)),
+      node((0.7,0), "Hash value", name: <hash-value>),
+      node((1,-0.7), "Hash pointer", name: <hash-pointer>),
+
+      edge(<hash-pointer>, <memory.east>, "->"),
+      edge(<hash-pointer>, <hash-value>, "->")
+    ),
+    caption: "Hash pointer"
+  )
+]
+
+Blockchain is a *linked list using Hash pointer*, each node stores a prev pointer to its previous node. Here is an example of blockchain:
+
+#align(center)[
+  #figure(
+    diagram(
+      let max = 5,
+      for i in range(1, max + 1) {
+        node((i - 1, 0), "Hp", shape: rect, stroke: 0.5pt, fill: red.lighten(90%), name: label(str(i)))
+        
+        if (i != 1) {
+          edge(label(str(i)), label(str(i - 1)), "-|>")
+        }
+      },
+
+      node((0.5, -1), "genesis block", name: <genesis>),
+      node((max - 0.5, -1), "most recent block", name: <most-recent>),
+
+      edge(<genesis>, <1>, "->"),
+      edge(<most-recent>, label(str(max)), "->")
+    ),
+    caption: "Blockchain"
+  )
+]
+
+Because every node on the blockchain stores the Hash pointer, whenever the content of some node $k$ changes, the Hash pointer to node $k$, which is stored by node $k+1$, will also change. Because node $k+1$ stores the Hash pointer to node $k$ and this Hash pointer has also changed. Continues this analysis procedure, and we will get this conclusion: *when the content of node $k$ changes*,
+
+$ forall m <= i <= sans("most recent block"), upright(H)(i) != upright(H)(i)_(sans("original")) $
+
+So we can detect the Hash value (or Hash pointer) to the most recent block to detect every tiny change on the blockchain. This is called *tamper-evident log*.
+
+= 2.2 Merkle Tree
+
+*Merkle tree* is a binary tree using Hash pointer, each node stores two Hash pointers to the two leaf nodes. We can draw a figure to describe the Merkle tree:
+
+#align(center)[
+  #figure(
+    diagram(
+      node-shape: rect,
+      node-stroke: 0.5pt,
+      node-fill: red.lighten(90%),
+
+      // Hash pointer nodes
+
+      let dis = 1.6,
+      let height = 0.8,
+      let gap = 0.8,
+      let data_gap = 0.5,
+      let data_width  = 20pt,
+      let data_height = 40pt,
+      let content_str = "Hp   Hp",
+
+      node((0,0), content_str, name: <0>),
+      node((+dis, height), content_str, name: <0-2>),
+      node((-dis, height), content_str, name: <0-1>),
+      node((-dis - gap, height * 2), content_str, name: <0-1-1>),
+      node((-dis + gap, height * 2), content_str, name: <0-1-2>),
+      node((+dis + gap, height * 2), content_str, name: <0-2-2>),
+      node((+dis - gap, height * 2), content_str, name: <0-2-1>),
+
+      // data blocks
+
+      node((-dis - gap - data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-1>),
+      node((-dis - gap + data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-2>),
+      node((-dis + gap + data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-3>),
+      node((-dis + gap - data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-4>),
+      node((+dis - gap - data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-5>),
+      node((+dis - gap + data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-6>),
+      node((+dis + gap - data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-7>),
+      node((+dis + gap + data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-8>),
+
+      edge(<0>, <0-1>, "-|>"),
+      edge(<0>, <0-2>, "-|>"),
+      edge(<0-1>, <0-1-1>, "-|>"),
+      edge(<0-1>, <0-1-2>, "-|>"),
+      edge(<0-2>, <0-2-1>, "-|>"),
+      edge(<0-2>, <0-2-2>, "-|>"),
+      edge(<0-1-1>, <data-1>, "-|>"),
+      edge(<0-1-1>, <data-2>, "-|>"),
+      edge(<0-1-2>, <data-3>, "-|>"),
+      edge(<0-1-2>, <data-4>, "-|>"),
+      edge(<0-2-1>, <data-5>, "-|>"),
+      edge(<0-2-1>, <data-6>, "-|>"),
+      edge(<0-2-2>, <data-7>, "-|>"),
+      edge(<0-2-2>, <data-8>, "-|>"),
+
+      // 
+
+    )
+  )
+]
