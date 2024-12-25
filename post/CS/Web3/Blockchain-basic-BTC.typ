@@ -113,9 +113,9 @@ Blockchain is a *linked list using Hash pointer*, each node stores a prev pointe
   )
 ]
 
-Because every node on the blockchain stores the Hash pointer, whenever the content of some node $k$ changes, the Hash pointer to node $k$, which is stored by node $k+1$, will also change. Because node $k+1$ stores the Hash pointer to node $k$ and this Hash pointer has also changed. Continues this analysis procedure, and we will get this conclusion: *when the content of node $k$ changes*,
+Because every node on the blockchain stores the Hash pointer, whenever the content of some node $k$ changes, the Hash pointer to node $k$, which is stored by node $k+1$, will also change. Because node $k+1$ stores the Hash pointer to node $k$ and this Hash pointer has also changed. Continue this analysis procedure, and we will get this conclusion: *when the content of node $k$ changes*,
 
-$ forall m <= i <= sans("most recent block"), upright(H)(i) != upright(H)(i)_(sans("original")) $
+$ forall k + 1 <= i <= sans("most recent block"), upright(H)(i) != upright(H)(i)_(sans("original")) $
 
 So we can detect the Hash value (or Hash pointer) to the most recent block to detect every tiny change on the blockchain. This is called *tamper-evident log*.
 
@@ -139,12 +139,14 @@ So we can detect the Hash value (or Hash pointer) to the most recent block to de
       let data_width  = 20pt,
       let data_height = 40pt,
       let content_str = "Hp   Hp",
+      let left_str = text("Hp", fill: red) + "   Hp",
+      let right_str = "Hp   " + text("Hp", fill: red),
 
-      node((0,0), content_str, name: <0>),
+      node((0,0), right_str, name: <0>, fill: yellow.lighten(80%)),
       node((+dis, height), content_str, name: <0-2>),
-      node((-dis, height), content_str, name: <0-1>),
+      node((-dis, height), left_str, name: <0-1>, fill: yellow.lighten(80%)),
       node((-dis - gap, height * 2), content_str, name: <0-1-1>),
-      node((-dis + gap, height * 2), content_str, name: <0-1-2>),
+      node((-dis + gap, height * 2), left_str, name: <0-1-2>, fill: yellow.lighten(80%)),
       node((+dis + gap, height * 2), content_str, name: <0-2-2>),
       node((+dis - gap, height * 2), content_str, name: <0-2-1>),
 
@@ -152,7 +154,7 @@ So we can detect the Hash value (or Hash pointer) to the most recent block to de
 
       node((-dis - gap - data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-1>),
       node((-dis - gap + data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-2>),
-      node((-dis + gap + data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-3>),
+      node((-dis + gap + data_gap, height * 3), height: data_height, width: data_width, fill: yellow.lighten(80%), name: <data-3>),
       node((-dis + gap - data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-4>),
       node((+dis - gap - data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-5>),
       node((+dis - gap + data_gap, height * 3), height: data_height, width: data_width, fill: teal.lighten(80%), name: <data-6>),
@@ -174,8 +176,19 @@ So we can detect the Hash value (or Hash pointer) to the most recent block to de
       edge(<0-2-2>, <data-7>, "-|>"),
       edge(<0-2-2>, <data-8>, "-|>"),
 
-      // 
-
-    )
+    ),
+    caption: "Merkle Tree"
   )
 ]
+
+The blue blocks are called *data blocks*, the blocks that store two hash pointers are called *Hash pointer blocks*, and the root of this binary tree is called the *root Hash*. Every data block can store a trade record. Every block in blockchain has two components: *block header* and *block body*. Block header stores the root Hash of a Merkle tree on this block, block header doesn't store the detailed information of trade records.
+
+There are two kinds of node:
+- *Full node*: full node stores the detailed trade records and the whole Merkle tree.
+- *Light node*: light node only stores the Hash value of this light node on the Merkle tree.
+
+The yellow block in data blocks is a light node, and when it wants to verify if a trade record is written in it, it will request the full node to offer the Hash value of other branches (marked as #text("Hp", fill: red) in the figure above) and calculate the Hash value of each node in the path from this yellow block to the root. Finally, it will compare the calculated Hash value of root node and the stored Hash value of root node. This procedure is called *proof of membership*, and the time complexity is $O(log n)$, here $n$ is the quantity of data blocks.
+
+= 3 Agreement
+
+Consider that a central bank wants to issue some virtual currency, but we can copy 
