@@ -65,7 +65,7 @@ In asymmetric encryption, the encryption key and decryption key are the same. If
   )
 ]
 
-In Bitcoin trade, asymmetric encryption is used in *signature*. For example, Alice wants to give 10 bitcoins to Bob, she posts this trade to the blockchain. This procedure needs her to use her private key to signature the trade. The others on the blockchain can verify this using Alice's public key.
+In Bitcoin trade, asymmetric encryption is used in *signature*. For example, Alice wants to give 10 bitcoins to Bob, she posts this trade to the blockchain. This procedure needs her to use her private key to sign the trade. The others on the blockchain can verify this using Alice's public key.
 
 Creating the private and public key needs a good source of randomness, under this situation, creating the same private and public key with other's is impossible.
 
@@ -189,6 +189,79 @@ There are two kinds of node:
 
 The yellow block in data blocks is a light node, and when it wants to verify if a trade record is written in it, it will request the full node to offer the Hash value of other branches (marked as #text("Hp", fill: red) in the figure above) and calculate the Hash value of each node in the path from this yellow block to the root. Finally, it will compare the calculated Hash value of root node and the stored Hash value of root node. This procedure is called *proof of membership*, and the time complexity is $O(log n)$, here $n$ is the quantity of data blocks.
 
-= 3 Agreement
+= 3 Protocol
 
-Consider that a central bank wants to issue some virtual currency, but we can copy 
+Consider that a central bank wants to issue some virtual currencies, but we can copy these virtual currencies to spend twice, and this is called *double spending attack*. To avoid this, central bank will append the information of signature to these virtual currencies, like this:
+
+#align(center)[
+  #import fletcher.shapes: pill, parallelogram, diamond, hexagon, ellipse
+  #figure(
+    diagram(
+      node-stroke: 0.5pt,
+      node((0,0), "$100 \n signed by A", shape: parallelogram, fill: teal.lighten(80%), name: <A>),
+      node((1.5,0), "Central Bank", shape: ellipse, fill: black.lighten(90%), name: <central>),
+      node((3,0), "$100 \n signed by B", shape: parallelogram, fill: red.lighten(80%), name: <B>),
+
+      edge(<A.north>, "-|>", <central.north>, label: "send to central bank",bend: +40deg),
+      edge(<central.south>, "-|>", <B.south>, label: "approve by central bank", bend: -40deg)
+    ),
+    caption: "Centralized Currency System"
+  )
+]
+
+When A gives his currencies to B, this trade will be approved by the central bank, and the signature changes from A to B. Every trade should be approved by and transported through the central bank, that's called the *centralized currency system*.
+
+Bitcoin comes from mining, and it's called *create coin*. A decentralized currency system needs Hash pointers to work:
+
+#align(center)[
+  #figure(
+    diagram(
+      node((0,0), "Create Coin"),
+      node((0, 0.4), $arrow.long.r upright(A)(10)$, name: <origin-A>),
+      node(enclose: ((0,0), <origin-A>), stroke: 0.5pt, fill: teal.lighten(80%), name: <group-1>),
+
+      node((1.5,0), "A", name: <distribute-A-1>),
+      node((2.4,-0.2), $upright(B)(5)$, name: <origin-B>),
+      node((2.4,0.2), $upright(C)(5)$, name: <origin-C>),
+      node((2, 0.6), "Signed by A", name: <sign-A-1>),
+      node(enclose: (<distribute-A-1>, <origin-B>, <origin-C>, <sign-A-1>), stroke: 0.5pt, fill: teal.lighten(80%), name: <group-2>),
+
+      node((3.8,0), "B", name: <distribute-B-1>),
+      node((4.7,-0.2), $upright(C)(2)$, name: <distribute-C-1>),
+      node((4.7,0.2), $upright(D)(3)$, name: <origin-D>),
+      node((4.3, 0.6), "Signed by B", name: <sign-B-1>),
+      node(enclose: (<distribute-B-1>, <distribute-C-1>, <origin-D>, <sign-B-1>), stroke: 0.5pt, fill: teal.lighten(80%), name: <group-3>),
+
+      edge(<distribute-A-1>, "-|>", <origin-B.west>),
+      edge(<distribute-A-1>, "-|>", <origin-C.west>),
+      edge(<group-2>, "-|>", <group-1>),
+      edge(<distribute-A-1>, (1.5,1.2), (0,1.2), <origin-A>, "-|>"),
+
+      edge(<distribute-B-1>, "-|>", <distribute-C-1.west>),
+      edge(<distribute-B-1>, "-|>", <origin-D.west>),
+      edge(<group-3>, "-|>", <group-2>),
+      edge(<distribute-B-1>, (3.8,-0.8), (2.4,-0.8), <origin-B>, "-|>"),
+      edge(<distribute-C-1>, (4.7,-0.8), (5.3,-0.8), (5.3,1.2), (3.0, 1.2), <origin-C>, "-|>")
+    ),
+    caption: "Decentralized Currency System"
+  )
+]
+
+In 1.2 Signature we say that every person who wants to transfer his currencies to other needs to sign this trade using his private key. This is to avoid the double spending attack. For *A*, a trade from A to B needs two things, he needs two things:
+- The *signature of A*, this is created by A's private key, others can verify it using A's public key;
+- The *address of B*, and it can be calculated by the Hash value of B's public key. In blockchain world, one's address is equal to the bank account ID in real world. Similar with the real world, bank doesn't have a way to search one's account ID, bitcoin system also doesn't have a way to search one's address.
+
+For *B*, a trade from A to B, he needs just one thing:
+- The *public key of A*, B needs to verify that this trade is indeed from A. And the public key of A can be obtained from this trade automatically.
+
+The first node is called *coinbase*, and this will provide the Hash value of A. We can consider a trade as a model has *input* and *output*. For a trade from A to B, the input includes the public key of A, and the output includes the signature of A and the address of B (equivalent to the Hash value of B's public key).
+
+*
+In blockchain, a block has two components:
+- Block header ():
+  - The version of bitcoin protocol;
+  - The Hash pointer to the previous block header;
+  - The root Hash value of Merkle tree in Block body;
+  - The target of mining difficulty (see 1.1 Hash function);
+  - The nonce of mining.
+*
