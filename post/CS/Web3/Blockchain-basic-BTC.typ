@@ -65,7 +65,7 @@ In asymmetric encryption, the encryption key and decryption key are the same. If
   )
 ]
 
-In Bitcoin trade, asymmetric encryption is used in *signature*. For example, Alice wants to give 10 bitcoins to Bob, she posts this trade to the blockchain. This procedure needs her to use her private key to sign the trade. The others on the blockchain can verify this using Alice's public key.
+In Bitcoin transaction (simplified as *tx*), asymmetric encryption is used in *signature*. For example, Alice wants to give 10 bitcoins to Bob, she posts this transaction to the blockchain. This procedure needs her to use her private key to sign the transaction. The others on the blockchain can verify this using Alice's public key.
 
 Creating the private and public key needs a good source of randomness, under this situation, creating the same private and public key with other's is impossible.
 
@@ -181,13 +181,13 @@ So we can detect the Hash value (or Hash pointer) to the most recent block to de
   )
 ]
 
-The blue blocks are called *data blocks*, the blocks that store two hash pointers are called *Hash pointer blocks*, and the root of this binary tree is called the *root Hash*. Every data block can store a trade record. Every block in blockchain has two components: *block header* and *block body*. Block header stores the root Hash of a Merkle tree on this block, block header doesn't store the detailed information of trade records.
+The blue blocks are called *data blocks*, the blocks that store two hash pointers are called *Hash pointer blocks*, and the root of this binary tree is called the *root Hash*. Every data block can store a transaction record. Every block in blockchain has two components: *block header* and *block body*. Block header stores the root Hash of a Merkle tree on this block, block header doesn't store the detailed information of transaction records.
 
 There are two kinds of node:
-- *Full node*: full node stores the detailed trade records and the whole Merkle tree.
+- *Full node*: full node stores the detailed transaction records and the whole Merkle tree.
 - *Light node*: light node only stores the Hash value of this light node on the Merkle tree.
 
-The yellow block in data blocks is a light node, and when it wants to verify if a trade record is written in it, it will request the full node to offer the Hash value of other branches (marked as #text("Hp", fill: red) in the figure above) and calculate the Hash value of each node in the path from this yellow block to the root. Finally, it will compare the calculated Hash value of root node and the stored Hash value of root node. This procedure is called *proof of membership*, and the time complexity is $O(log n)$, here $n$ is the quantity of data blocks.
+The yellow block in data blocks is a light node, and when it wants to verify if a transaction record is written in it, it will request the full node to offer the Hash value of other branches (marked as #text("Hp", fill: red) in the figure above) and calculate the Hash value of each node in the path from this yellow block to the root. Finally, it will compare the calculated Hash value of root node and the stored Hash value of root node. This procedure is called *proof of membership*, and the time complexity is $O(log n)$, here $n$ is the quantity of data blocks.
 
 = 3 Protocol
 
@@ -211,7 +211,7 @@ Consider that a central bank wants to issue some virtual currencies, but we can 
   )
 ]
 
-When A gives his currencies to B, this trade will be approved by the central bank, and the signature changes from A to B. Every trade should be approved by and transported through the central bank, that's called the *centralized currency system*.
+When A gives his currencies to B, this transaction will be approved by the central bank, and the signature changes from A to B. Every transaction should be approved by and transported through the central bank, that's called the *centralized currency system*.
 
 Bitcoin comes from mining, and it's called *create coin*. A decentralized currency system needs Hash pointers to work:
 
@@ -249,14 +249,14 @@ Bitcoin comes from mining, and it's called *create coin*. A decentralized curren
   )
 ]
 
-In 1.2 Signature we say that every person who wants to transfer his currencies to other needs to sign this trade using his private key. This is to avoid the double spending attack. For *A*, a trade from A to B needs two things, he needs two things:
+In 1.2 Signature we say that every person who wants to transfer his currencies to other needs to sign this transaction using his private key. This is to avoid the double spending attack. For *A*, a transaction from A to B needs two things, he needs two things:
 - The *signature of A*, this is created by A's private key, others can verify it using A's public key;
 - The *address of B*, and it can be calculated by the Hash value of B's public key. In blockchain world, one's address is equal to the bank account ID in real world. Similar with the real world, bank doesn't have a way to search one's account ID, bitcoin system also doesn't have a way to search one's address.
 
-For *B*, a trade from A to B, he needs just one thing:
-- The *public key of A*, B needs to verify that this trade is indeed from A. And the public key of A can be obtained from this trade automatically.
+For *B*, a transaction from A to B, he needs just one thing:
+- The *public key of A*, B needs to verify that this transaction is indeed from A. And the public key of A can be obtained from this transaction automatically.
 
-The first node is called *coinbase*, and this will provide the Hash value of A. We can consider a trade as a model has *input* and *output*. For a trade from A to B, the input includes the public key of A, and the output includes the signature of A and the address of B (equivalent to the Hash value of B's public key). This model is called as *UTXO* (Unspent TX Output).
+The first node is called *coinbase*, and this will provide the Hash value of A. We can consider a transaction as a model has *input* and *output*. For a transaction from A to B, the input includes the public key of A, and the output includes the signature of A and the address of B (equivalent to the Hash value of B's public key). This model is called as *UTXO* (Unspent TX Output). UTXO model can verify the reliability of a transaction, if we can't go back to the coinbase from this transaction, then we know this transaction is malicious.
 
 *
 In blockchain, a block has two components:
@@ -278,4 +278,37 @@ But, how to decide?
 
 There is a blockchain architecture called #link("https://github.com/hyperledger/fabric")[*hyperledger fabric*], this is a kind of *alliance chain*. It only allows some reliable company to vote on which node is malicious. But in Bitcoin, we doesn't use alliance chain, every node has voting rights. But when malicious nodes are more than normal nodes, malicious nodes can attack indiscriminately. This is called *sybil attack*.
 
-So to avoid this attack, Bitcoin doesn't use this method, it uses *PoW* (Proof-of-Work). Different nodes have different computing power, the node who first calculates the nonce of this block has the right to write this block into blockchain. 
+#align(center)[
+  #figure(
+    diagram(
+      node-shape: rect,
+      node-stroke: 0.5pt,
+      node-fill: red.lighten(80%),
+      node((0,0), height: 15pt, width: 50pt, name: <1>),
+      node((1,0), height: 15pt, width: 50pt, name: <2>),
+      node((2,0), $upright(A) arrow.r upright(B)$, height: 15pt, width: 50pt, name: <3>),
+      node((2,0.7), $upright(A) arrow.r upright(C)$, height: 15pt, width: 50pt, name: <4>),
+      node((3,0), height: 15pt, width: 50pt, name: <5>),
+
+      edge(<2>, "-|>", <1>),
+      edge(<3>, "-|>", <2>),
+      edge(<4.west>, "-|>", <2.south>),
+      edge(<5>, "-|>", <3>)
+    ),
+    caption: "Longest PoW Chain"
+  )
+]
+
+So to avoid this attack, Bitcoin doesn't use this method (In the bitcoin whitepaper, it's called *one-IP-address-one-vote*), it uses *PoW* (Proof-of-Work, or can be called *one-CPU-one-vote*). Different nodes have different computing power, the node who first calculates the nonce of this block has the right to write this block into blockchain. The majority decision is represented by the longest chain, which has the most PoW effort invested in it. The attacker node in figure 8 which is represented as $upright(A) arrow.r upright(C)$ transaction is double-spending, so it can't be verified.
+
+The longest PoW chain works as follows:
+*
+1. New transactions are broadcast to all nodes;
+2. Each node collects new transactions into a block;
+3. Each node works on finding a difficult PoW for its block;
+4. When a node finds a PoW, it broadcasts the block to all nodes;
+5. Nodes accept the block only if all transactions in it are valid and not double-spending;
+6. Nodes express their acceptance of the block by working on creating the next block in the blockchain, using the hash of the accepted blocks as the previous hash.
+*
+
+If two nodes broadcast different versions of the next block simultaneously, some nodes may receive one or another first, In that case, they work on the first one they received, but save the other branch in case it becomes longer. This situation will be broken when the next PoW is found and one branch becomes longer; the nodes that are working on the other branch will then switch to the longer one. This branch is then called the *orphan branch*.
