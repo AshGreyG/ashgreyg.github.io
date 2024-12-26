@@ -191,6 +191,8 @@ The yellow block in data blocks is a light node, and when it wants to verify if 
 
 = 3 Protocol
 
+= 3.1 UTXO
+
 Consider that a central bank wants to issue some virtual currencies, but we can copy these virtual currencies to spend twice, and this is called *double spending attack*. To avoid this, central bank will append the information of signature to these virtual currencies, like this:
 
 #align(center)[
@@ -254,14 +256,26 @@ In 1.2 Signature we say that every person who wants to transfer his currencies t
 For *B*, a trade from A to B, he needs just one thing:
 - The *public key of A*, B needs to verify that this trade is indeed from A. And the public key of A can be obtained from this trade automatically.
 
-The first node is called *coinbase*, and this will provide the Hash value of A. We can consider a trade as a model has *input* and *output*. For a trade from A to B, the input includes the public key of A, and the output includes the signature of A and the address of B (equivalent to the Hash value of B's public key).
+The first node is called *coinbase*, and this will provide the Hash value of A. We can consider a trade as a model has *input* and *output*. For a trade from A to B, the input includes the public key of A, and the output includes the signature of A and the address of B (equivalent to the Hash value of B's public key). This model is called as *UTXO* (Unspent TX Output).
 
 *
 In blockchain, a block has two components:
-- Block header ():
+- Block header (includes necessary information):
   - The version of bitcoin protocol;
   - The Hash pointer to the previous block header;
   - The root Hash value of Merkle tree in Block body;
+  - Timestamp
   - The target of mining difficulty (see 1.1 Hash function);
   - The nonce of mining.
+- Block body
 *
+
+= 3.2 Distributed Consensus
+
+Actually, blockchain is a kind of *distributed system* (more accurately, *decentralized ledger*), it's a field of computer science (I haven't heard before). *Distributed consensus* is used in these distributed systems, such as *Paxos*. Now I am only need to learn the distributed consensus in Bitcoin, those algorithms are designed to decide on which node is malicious.
+
+But, how to decide?
+
+There is a blockchain architecture called #link("https://github.com/hyperledger/fabric")[*hyperledger fabric*], this is a kind of *alliance chain*. It only allows some reliable company to vote on which node is malicious. But in Bitcoin, we doesn't use alliance chain, every node has voting rights. But when malicious nodes are more than normal nodes, malicious nodes can attack indiscriminately. This is called *sybil attack*.
+
+So to avoid this attack, Bitcoin doesn't use this method, it uses *PoW* (Proof-of-Work). Different nodes have different computing power, the node who first calculates the nonce of this block has the right to write this block into blockchain. 
