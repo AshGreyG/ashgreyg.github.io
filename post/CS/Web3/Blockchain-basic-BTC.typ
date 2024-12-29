@@ -17,13 +17,13 @@
 
   md5 is a kind of Hash function, but we have found the way to produce the Hash collision of md5 Hash function. And sometimes we want to avoid Hash collision when we detect if two messages are different, we may append a nonce to the original message:
 
-  $ m union sans("nonce") arrow.long.r upright(H)(m union sans("nonce")) $
+  $ m || sans("nonce") arrow.long.r upright(H)(m || sans("nonce")) $
 
 + *hiding*: Hash function can calculate the $upright(H)(m)$ from message $m$, but we can't calculate $m$ from $upright(H)(m)$. Hash function is one-way. The hiding property needs the input space of this Hash function large enough and uniform.
 
 + *puzzle friendly*: The Hash function used in Bitcoin has the third extra property. The Bitcoin mining is the calculation procedure below:
 
-  $ sans("block-header") union sans("nonce") arrow.long.r upright(H)(sans("block-header") union sans("nonce")) <= sans("target") $
+  $ sans("block-header") || sans("nonce") arrow.long.r upright(H)(sans("block-header") || sans("nonce")) <= sans("target") $
 
   We need to find the $sans("nonce")$ that satisfies the condition above. And this property "puzzle friendly" means that there is only one way to calculate the $sans("nonce")$: *brute force*, and that's called the *proof of work*. Bitcoin is *difficult to solve, but easy to verify*.
 
@@ -191,7 +191,7 @@ The yellow block in data blocks is a light node, and when it wants to verify if 
 
 = 3 Protocol
 
-= 3.1 UTXO
+= 3.1 Decentralized Currency System
 
 Consider that a central bank wants to issue some virtual currencies, but we can copy these virtual currencies to spend twice, and this is called *double spending attack*. To avoid this, central bank will append the information of signature to these virtual currencies, like this:
 
@@ -249,14 +249,14 @@ Bitcoin comes from mining, and it's called *create coin*. A decentralized curren
   )
 ]
 
-In 1.2 Signature we say that every person who wants to transfer his currencies to other needs to sign this transaction using his private key. This is to avoid the double spending attack. For *A*, a transaction from A to B needs two things, he needs two things:
+In 1.2 Signature we say that every person who wants to transfer his currencies to other needs to sign this transaction using his private key. This is to avoid the double spending attack. For *A*, a transaction from A to B, he needs two things:
 - The *signature of A*, this is created by A's private key, others can verify it using A's public key;
 - The *address of B*, and it can be calculated by the Hash value of B's public key. In blockchain world, one's address is equal to the bank account ID in real world. Similar with the real world, bank doesn't have a way to search one's account ID, bitcoin system also doesn't have a way to search one's address.
 
 For *B*, a transaction from A to B, he needs just one thing:
 - The *public key of A*, B needs to verify that this transaction is indeed from A. And the public key of A can be obtained from this transaction automatically.
 
-The first node is called *coinbase*, and this will provide the Hash value of A. We can consider a transaction as a model has *input* and *output*. For a transaction from A to B, the input includes the public key of A, and the output includes the signature of A and the address of B (equivalent to the Hash value of B's public key). This model is called as *UTXO* (Unspent TX Output). UTXO model can verify the reliability of a transaction, if we can't go back to the coinbase from this transaction, then we know this transaction is malicious.
+The first node is called *coinbase*, and this will provide the Hash value of A. We can consider a transaction as a model has *input* and *output*. For a transaction from A to B, the input includes the public key of A, and the output includes the signature of A and the address of B (equivalent to the Hash value of B's public key). If we can't go back to the coinbase from this transaction, then we know this transaction is malicious.
 
 *
 In blockchain, a block has two components:
@@ -312,3 +312,53 @@ The longest PoW chain works as follows:
 *
 
 If two nodes broadcast different versions of the next block simultaneously, some nodes may receive one or another first, In that case, they work on the first one they received, but save the other branch in case it becomes longer. This situation will be broken when the next PoW is found and one branch becomes longer; the nodes that are working on the other branch will then switch to the longer one. This branch is then called the *orphan branch*.
+
+= 4 Implements
+
+= 4.1 UTXO
+
+In 3.1 decentralized currency system we introduce the structure of a transaction in bitcoin system. In bitcoin system, UTXO is the basic unit of transactions, and actually it's a kind of data structure that records the input and output. Consider that Alice wants to initiate a transaction with Bob:
+
+#align(center)[
+  #figure(
+    diagram(
+      let dis = 2.4,
+      let gap = 0.4,
+      let height = 0.6,
+
+      let inner_corner = 3pt,
+      let outer_corner = 5pt,
+
+      node-stroke: 0.5pt,
+      node((0,0), "coinbase tx", stroke: 0pt, name: <tx0-name>),
+      node((gap, height), "Out", shape: rect, corner-radius: inner_corner, name: <tx0-out>),
+      node(enclose: (<tx0-name>, <tx0-out>), corner-radius: outer_corner, name: <tx0>),
+
+      node((dis,0), "tx-1", stroke: 0pt, name: <tx1-name>),
+      node((dis - gap, height), "In", shape: rect, corner-radius: inner_corner, name: <tx1-in>),
+      node((dis + gap, height), "Out", shape: rect, corner-radius: inner_corner, name: <tx1-out-1>),
+      node((dis + gap, 2 * height), "Out", shape: rect, corner-radius: inner_corner, name: <tx1-out-2>),
+      node(enclose: (<tx1-name>, <tx1-in>, <tx1-out-1>, <tx1-out-2>), corner-radius: outer_corner),
+
+      node((2 * dis - gap, height), "Bob", stroke: 0pt, name: <bob>),
+      node((2 * dis - gap, 2 * height), "Alice", stroke: 0pt, name: <alice>),
+
+      edge(<tx0-out>, "-|>", <tx1-in>, label: "6.25 BTC"),
+      edge(<tx1-out-1.east>, "-|>", <bob>, label: "4 BTC"),
+      edge(<tx1-out-2.east>, "-|>", <alice>, label: "2.25 BTC"),
+    ),
+    caption: "UTXO"
+  )
+]
+
+Alice gets 6.25 BTC from coinbase transaction, and that's an UTXO which has no input, only output. Alice gives 4 BTC to Bob, according to the principle that UTXO needs 
+
+$ sans("total inputs") = sans("total outputs") $
+
+(Notice bitcoin system allows miner node to charge other nodes who haven't found the nonce of this block, and that's called *transaction fee*), this UTXO must also include alice initiating a transaction with itself, whose output is 2.25 BTC.
+
+Bitcoin system sets the time gap between two blocks generating to be *10 minutes*, and every 210_000 blocks the *block reward* halves:
+
+$ (210000 times 10) / (60 times 24 times 365) approx 4 $
+
+that's to say about every 4 years the block reward halves.
