@@ -355,10 +355,99 @@ Alice gets 6.25 BTC from coinbase transaction, and that's an UTXO which has no i
 
 $ sans("total inputs") = sans("total outputs") $
 
-(Notice bitcoin system allows miner node to charge other nodes who haven't found the nonce of this block, and that's called *transaction fee*), this UTXO must also include alice initiating a transaction with itself, whose output is 2.25 BTC.
+(Notice bitcoin system allows miner node to charge other nodes who haven't found the nonce of this block, and that's called *transaction fee*), this UTXO must also include Alice initiating a transaction with itself, whose output is 2.25 BTC.
 
 Bitcoin system sets the time gap between two blocks generating to be *10 minutes*, and every 210_000 blocks the *block reward* halves:
 
 $ (210000 times 10) / (60 times 24 times 365) approx 4 $
 
 that's to say about every 4 years the block reward halves.
+
+= 4.2 Mining Difficulty
+
+Mining difficulty is inversely proportional to the target, we use constant value `difficulty_1_target` to represent the target when `difficulty` equals 1. We have
+
+$ sans("difficulty")=sans("difficulty_1_target") / sans("target") $
+
+Bitcoin system should keep the block release time stable (10 min), and so it should adjust the difficulty to suit the CPU power of the whole network. Bitcoin protocol dictates a time period (2016 blocks, about 14 days) for adjusting the difficulty. The adjustment method is
+
+$ sans("target")_(sans("new"))=sans("target")_(sans("old")) times sans("actual time") / sans("expected time") $
+
+For a miner, to calculate the nonce is so difficult that the expectation of earnings can be very low (even negative). So to raise the expectation of earnings, *pool managers* appear. They hire many mines to work together, and they will divide the block reward equally.
+
+= 4.3 Script
+
+The structure of a transaction may look like this:
+
+```json
+"result" : {
+  "txid" : "921a...dd24",
+  "hash" : "921a...dd24",
+  "version" : 1,
+  "size" : 226,
+  "locktime" : 0,
+  "vin" : [...],
+  "vout" : [...],
+  "blockhash" : "0000000000000000002c510d...5c0b",
+  "confirmations" : 23,
+  "time" : 15308446727,
+  "blocktime" : 153084446727
+}
+```
+
+`"vin"` is the inputs of a transaction, and it's an array like this:
+
+```json
+"vin" : [
+  {
+    "txid" : "c0cb...c57b",
+    "vout" : 0,
+    "scriptSig" : {
+      "asm" : "3045...0018",
+      "hex" : "4830...0018"
+    },
+  },
+  ...
+]
+```
+
+`"vout"` is the output of a transaction, and it's an array like this:
+
+```json
+"vout" : [
+  {
+    "value" : 0.22684000,
+    "n" : 0,
+    "scriptPubKey" : {
+      "asm" : "DUP HASH160 628e...d743 EQUALVERIFY CHECKSIG",
+      "hex" : "76a9...88ac",
+      "reqSigs" : 1,
+      "type" : "pubkeyhash",
+      "addresses" : [
+        "119z8LJkNXLrTv2QK5jqTncJCGGUEEfpQvSr"
+      ]
+    }
+  }
+  ...
+]
+```
+
+The script contents in `"scriptSig"` and `"scriptPubKey"` are a stack-based language used in Bitcoin system. And later we will call `"scriptSig"` in `"vin"` as *input script*, and `"scriptPubKey"` in `"vout"` as *output script*. Consider there are two transactions $upright(A) arrow upright(B)$ and $upright(B) arrow upright(C)$, early versions of Bitcoin system stitch together the output script in $upright(B) arrow upright(C)$ and the input script in $upright(A) arrow upright(B)$ to check if the total script would fail. Now Bitcoin system will run the input script in $upright(B) arrow  upright(C)$ first, then run the output script in $upright(A) arrow upright(B)$, for the *safety consideration*.
+
+- *P2PK (Pay to Public Key)* :
+
+  The P2PK scripts look like this, they only use public key to verify a transaction:
+
+  ```
+  input script (B -> C):
+    PUSHDATA(Sig)
+  output script (A -> B):
+    PUSHDATA(PubKey)
+    CHECKSIG
+  ```
+
+  Notice the signature there is from transaction $upright(B) -> upright(C)$, which is B's signature. And the public key here is from transaction $upright(A) -> upright(B)$, which is B's public key.
+
+- *P2PKH (Pay to Public Key Hash)* :
+
+  
