@@ -446,8 +446,40 @@ The script contents in `"scriptSig"` and `"scriptPubKey"` are a stack-based lang
     CHECKSIG
   ```
 
-  Notice the signature there is from transaction $upright(B) -> upright(C)$, which is B's signature. And the public key here is from transaction $upright(A) -> upright(B)$, which is B's public key.
+  Notice the signature there is from transaction $upright(B) -> upright(C)$, which is B's signature. And the public key here is from transaction $upright(A) -> upright(B)$, which is B's public key. `CHECKSIG` here is to verify the signature.
 
 - *P2PKH (Pay to Public Key Hash)* :
+
+  Output script ($upright(A) -> upright(B)$) in the P2PKH doesn't give the public key of B, but the hash value of public key. It may look like this:
+
+  ```
+  input script (B -> C):
+    PUSHDATA(Sig)
+    PUSHDATA(PubKey)
+  output script (A -> B):
+    DUP
+    HASH160
+    PUSHDATA(PubKeyHash)
+    EQUALVERIFY
+    CHECKSIG
+  ```
+
+  `DUP` here is to copy the top element in the stack and push to it (here is to copy the `PubKey` element). `HASH160` is to pop the top element and then push its hash value to the stack.
+
+- *P2SH (Pay to Script Hash)* :
+
+  Use #link("https://github.com/bitcoin/bips/blob/master/bip-0016/qa.mediawiki")[BIP-0016] proposal, the script looks like:
+
+  ```
+  input script (B -> C):
+    ...
+    PUSHDATA(Sig)
+    ...
+    PUSHDATA(serialized redeemScript)
+  output script (A -> B):
+    HASH160
+    PUSHDATA(redeemScriptHash)
+    EQUAL
+  ```
 
   
