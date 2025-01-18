@@ -17,7 +17,7 @@
         - #chapter(none)[Language]
         - #chapter(none)[Cryptography]
           - #chapter(none)[Basic]
-            - #chapter("./post/CS/Cryptography/Cryptography-basic-01-introduction")[Modern Cryptography (1) Introduction]
+            - #chapter("./post/CS/Cryptography/Cryptography-basic-01-introduction.typ")[Modern Cryptography (1) Introduction]
         - #chapter(none)[Web 3]
           - #chapter(none)[Blockchain]
             - #chapter("./post/CS/Web3/Blockchain-basic-BTC.typ")[Blockchain: BTC]
