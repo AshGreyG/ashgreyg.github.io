@@ -37,4 +37,11 @@ Note the same key is used to convert the plaintext into a ciphertext and back, a
   The set of all possible keys output by the key-generation algorithm is called the *key space* and is denoted by $cal("K")$. Almost always, $sans("Gen")$ simply chooses a uniform key from the key space.
 ]
 
-First, $sans("Gen")$ is run to obtain a key $k$ that the parties share. Later, when one party wants to send a plaintext
+First, $sans("Gen")$ is run to obtain a key $k$ that the parties share. Later, when one party wants to send a plaintext $m$ to the other, she computes $c:= sans("Enc")_k (m)$ and sends the resulting ciphertext $c$ over the public channel to the other party. Upon receiving $c$, the other party computes $m:= sans("Dec")_k (c)$ to recover the original plaintext.
+
+If an eavesdropper knows the algorithm $sans("Dec")$ as well as the key $k$ shared by the two communicating parties, then that adversary will be able to decrypt any ciphertexts transmitted by those parties. Auguste Kerckhoffs argued the opposite in a paper he wrote elucidating several design principles for military ciphers. One of the most important of these, now known simply as *Kerckhoffs's principle*:
+
+#definition(number: "1.2 Kerckhoffs's principle")[
+  The cipher method must not be required to be secret, and it must be able to fall into the hands of the enemy without inconvenience. *That is, an encryption scheme should be designed to be secure even if an eavesdropper knows all the details of the scheme, so long as the attacker doesn't know the key being used.*
+]
+

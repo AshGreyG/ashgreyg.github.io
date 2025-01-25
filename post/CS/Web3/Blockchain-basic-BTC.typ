@@ -482,4 +482,4 @@ The script contents in `"scriptSig"` and `"scriptPubKey"` are a stack-based lang
     EQUAL
   ```
 
-  
+
