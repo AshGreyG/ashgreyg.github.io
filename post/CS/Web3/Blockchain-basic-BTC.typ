@@ -482,4 +482,4 @@ The script contents in `"scriptSig"` and `"scriptPubKey"` are a stack-based lang
     EQUAL
   ```
 
-
+  Bitcoin will first check the redeem script using its hash value, and then deserialize the serialized redeem script to execute it.

@@ -25,6 +25,9 @@
         - #chapter(none)[Algebra]
           - #chapter(none)[Linear Algebra]
             - #chapter("./post/Math/Algebra/Linear-Algebra-basic-01-vector-spaces.typ")[Linear Algebra: (1) Vector Spaces]
+        - #chapter(none)[Number Theory]
+          - #chapter(none)[Elementary Number Theory]
+            - #chapter("./post/Math/Number-Theory/Elementary-basic-01-Integers.typ")[Elementary Number Theory: (1) Integers]
   ]
 )
 

@@ -45,3 +45,14 @@ If an eavesdropper knows the algorithm $sans("Dec")$ as well as the key $k$ shar
   The cipher method must not be required to be secret, and it must be able to fall into the hands of the enemy without inconvenience. *That is, an encryption scheme should be designed to be secure even if an eavesdropper knows all the details of the scheme, so long as the attacker doesn't know the key being used.*
 ]
 
+Kerckhoffs's principle demands that *security rely solely on secrecy of the key*. 
+
+= 2 Historical Ciphers and Their Cryptanlaysis
+
+Plaintext characters are written in $mono("lower case")$ and ciphertext characters are written in $mono("UPPER CASE")$.
+
+#definition(number: "2.1 The shift cipher")[
+  The *shift cipher* can be viewed as a keyed variant of *Caesar's cipher*. Specially, in the shift cypher the key $k$ is a number between 0 and 25. 
+  + Algorithm $sans("Gen")$ outputs a uniform key $k in {0,dots.c,25}$;
+  + 
+]

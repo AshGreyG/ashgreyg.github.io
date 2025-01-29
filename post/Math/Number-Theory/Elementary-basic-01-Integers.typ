@@ -66,3 +66,149 @@ The greatest integer function is also known as the *floor function*, computer sc
 
 = 1.3 Diophantine Approximation
 
+We know that the distance of a real number to the integer closest to it is at most $1\/2$. Diophantine approximation studies the questions that involve the approximation of real numbers by rational numbers.
+
+#theorem(number: "1.2 The Pigeonhole Principle")[
+  If $k+1$ or more objects are placed into $k$ boxes, then at least one box contains or more of the objects.
+]
+
+#proof[
+  If none of the $k$ boxes contains more than one object, than the total number of objects would be at most $k$. This contradiction shows that one of the boxes contains at least two or more of the objects.
+]
+
+#theorem(number: "1.3 Dirichlet's Approximation Theorem")[
+  If $alpha$ is a real number and $n$ is a positive integer, then there exist integers $a$ and $b$ with $1 <= alpha <= n$ such that $|a alpha - b| < 1\/n$.
+]
+
+#proof[
+  Consider the $n+1$ numbers $0,{alpha},{2alpha},dots.c,{n alpha}$. These $n+1$ numbers are the fractional parts of the numbers $j alpha$, here $j=0,1,dots.c,n$, so that $0 <= {j alpha} < 1$ for $j=0,1,dots.c,n$. Each of these $n+1$ numbers lies in one of the $n$ disjoint intervals 
+
+  $ [0,1/n),[1/n,2/n),dots.c,[(j-1)/n,j/n),[(n-1)/n,1) $
+
+  Because there are $n+1$ numbers under consideration, but only $n$ intervals, the Pigeonhole principle tells us that at least two of these numbers lie in the same interval. Because each of these intervals have length $1\/n$ and does not include its right endpoint. So exist integers $j$ and $k$ with $0 <= j < k <= n$ such that
+
+  $ {k alpha} - {j alpha} < 1/n $
+
+  We now show that when $a=k-j$, the product $a alpha$ is within $1\/n$ of the integer $b=[k alpha]-[j alpha]$:
+
+  $ |a alpha - b| & = |(k-j)alpha -([k alpha] - [j alpha])| \
+    & = |(k alpha - [k alpha])-(j alpha - [j alpha])| \
+    & = |{k alpha} - {j alpha}| \
+    & < 1/n $
+
+  Note that because $0 <= j < k <= n$, we have $1 <= a=k-j <= n$. Consequently, we have found integers $a$ and $b$ with $1<=a<=n$ and $|a alpha -b|<1\/n$, as desired.
+]
+
+= 1.4 Sequences
+
+A *sequence* ${a_n}$ is a list of numbers $a_1,a_2,a_3,dots.c$. Note that we can define a sequence with an initial term $a_0$.
+
+#definition(number: "1.5 Geometric Progression")[
+  A *geometric progression* is a sequence of the form $a,a r,a r^2,a r^3,dots.c,a r^k,dots.c$, where $a,r in RR$, $a$ is the *initial term*, $r$ is the *common ratio*.
+]
+
+For example, the sequence ${a_n}$ where $a_n=3 dot 5^n$ is a geometric sequence with initial term $3$ and common ratio $5$.
+
+#definition(number: "1.6 Arithmetic Progression")[
+  An *arithmetic progression* is a sequence of the form $a,a+d,a+2d,dots.c,a+n d,dots.c$, where $a,d in RR$, $a$ is the *initial term*, $d$ is the *common difference*.
+]
+
+For example, the sequence ${a_n}$ where $a_n=3n+1$ is an arithmetic sequence with initial term $4$ and common difference $3$.
+
+#definition(number: "1.7 Countable Set")[
+  A set is *countable* if it is finite or if it is infinite and there exists a one-to-one correspondence between $ZZ^+$ and the set. A set is not countable is called *uncountable*.
+]
+
+An infinite set $S$ is countable if and only if its elements can be listed as the terms of a sequence indexed by the set of positive integers. A one-to-one correspondence $f:ZZ^+ |-> S$ is exactly the same as a listing of the elements of the set in a sequence $a_1,a_2,dots.c,a_n,dots.c$, where $a_i=f(i)$.
+
+#theorem(number: "1.4")[
+  The set of rational numbers is countable.
+]
+
+#proof[
+  There is an informal proof from Cantor, he lists $1,2,3,dots.c$ (they will form the numerators) from left to right, $1,2,3,dots.c$ (they will form the denominators) from top to bottom, they makes a matrix that represents all the rational numbers:
+
+  #figure(
+    diagram(
+      let gcd(x, y) = {
+        while (y != 0) {
+          let tmp = x;
+          x = y;
+          y = tmp - int(tmp / y) * y;
+          // y = tmp % y, Typst doesn't support mod operator
+        }
+        return x;
+      },
+
+      // Define gcd function
+
+      let unit = 4 / 5,
+      let width = 5,
+      for x in range(1, width) {
+        node((x * unit, 0), str(x))
+      },
+      for y in range(1, width) {
+        node((0, y * unit), str(y))
+      },
+      for y in range(1, width) {
+        for x in range(1, width) {
+          if (gcd(x, y) == 1) {
+            node(
+              (x * unit, y * unit), 
+              $ #x / #y $, 
+              name: label(str(x) + "-" + str(y))
+            )
+          } else {
+            node(
+              (x * unit, y * unit), 
+              $ cancel(#x / #y) $,
+              name: label(str(x) + "-" + str(y))
+            )
+          }
+        }
+      },
+
+      // Draw the integers and rational numbers in Cantor proof
+
+      let n = 1,  // n: numerator
+      let d = 2,  // d: denominator
+      let count = 2,
+      let direction = -1,
+      let last_n = 1,
+      let last_d = 1,
+
+      while (count <= width * (width - 1) / 2) {
+        edge(
+          label(str(last_n) + "-" + str(last_d)),
+          label(str(n) + "-" + str(d)),
+          "->"
+        )
+        last_n = n;
+        last_d = d;
+        if (n == 1 and direction == 1) {
+          d += 1;
+          direction = -1;
+        } else if (d == 1 and direction == -1) {
+          n += 1;
+          direction = 1;
+        } else {
+          n += direction * (-1);
+          d += direction;
+        }
+        
+        count += 1;
+      },
+
+    ),
+    caption: [
+      Using Typst to draw the Cantor proof
+    ]
+  )
+
+  #figure(
+    image("Elementary-basic-01-Integers-01.svg"),
+    caption: [
+      Using #link("https://github.com/AshGreyG/To-Learn-By-Books/blob/main/Math/Number-Theory/Elementary-Number-Theory-and-Its-Application/01-Cantor.py")[Python] to generate the Cantor proof
+    ]
+  )
+]
