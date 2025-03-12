@@ -29,7 +29,7 @@
             - #chapter("./post/Math/Algebra/Abstract-Algebra-basic-01-categories.typ")[Abstract Algebra (1): Set Theory and Categories]
         - #chapter(none)[Number Theory]
           - #chapter(none)[Elementary Number Theory]
-            - #chapter("./post/Math/Number-Theory/Elementary-basic-01-Integers.typ")[Elementary Number Theory (1): Integers]
+            - #chapter("./post/Math/Number-Theory/Elementary-basic-01-integers.typ")[Elementary Number Theory (1): Integers]
   ]
 )
 
