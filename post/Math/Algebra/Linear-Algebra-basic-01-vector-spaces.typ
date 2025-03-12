@@ -23,10 +23,13 @@
 
 = 1.1 Complex Numbers
 
-Complex numbers were invented so that we can take square root of negative numbers. The idea is to assume that we have a square root of $-1$, denoted as $upright(i)$, and that obeys the usual rules of arithmetic.
+Complex numbers were invented so that we can take square root of negative numbers. 
+The idea is to assume that we have a square root of $-1$, denoted as $upright(i)$, 
+and that obeys the usual rules of arithmetic.
 
 #definition(number: "1")[
-  - A *complex number* is an ordered pair $(a,b)$, where $a,b in RR$, we will write this as $a+b upright(i)$.
+  - A *complex number* is an ordered pair $(a,b)$, where $a,b in RR$, we will write 
+    this as $a+b upright(i)$.
   - The set of all complex numbers is denoted by $CC$:
 
     $ CC={a+b upright(i) : a,b in RR}  $

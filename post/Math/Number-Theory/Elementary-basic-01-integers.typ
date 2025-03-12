@@ -206,9 +206,12 @@ An infinite set $S$ is countable if and only if its elements can be listed as th
   )
 
   #figure(
-    image("Elementary-basic-01-Integers-01.svg"),
+    image("Elementary-basic-01-integers-01.svg"),
     caption: [
       Using #link("https://github.com/AshGreyG/To-Learn-By-Books/blob/main/Math/Number-Theory/Elementary-Number-Theory-and-Its-Application/01-Cantor.py")[Python] to generate the Cantor proof
     ]
   )
 ]
+
+= 2 Sums and Products
+
