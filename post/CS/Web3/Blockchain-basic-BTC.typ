@@ -28,7 +28,7 @@
   when we detect if two messages are different, we may append a nonce to 
   the original message:
 
-  $ m || sans("nonce") arrow.long.r upright(H)(m || sans("nonce")) $
+  $ m || sans("nonce") --> upright(H)(m || sans("nonce")) $
 
 + *hiding*: Hash function can calculate the $upright(H)(m)$ from message $m$, 
   but we can't calculate $m$ from $upright(H)(m)$. Hash function is one-way. The 
@@ -37,7 +37,7 @@
 + *puzzle friendly*: The Hash function used in Bitcoin has the third extra property. 
   The Bitcoin mining is the calculation procedure below:
 
-  $ sans("block-header") || sans("nonce") arrow.long.r upright(H)(sans("block-header") 
+  $ sans("block-header") || sans("nonce") --> upright(H)(sans("block-header") 
   || sans("nonce")) <= sans("target") $
 
   We need to find the $sans("nonce")$ that satisfies the condition above. And this 
