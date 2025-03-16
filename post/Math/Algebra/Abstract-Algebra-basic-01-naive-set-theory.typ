@@ -1,6 +1,6 @@
 #import "@preview/fletcher:0.5.3" as fletcher: diagram, node, edge
 #import "/book.typ": book-page
-#show: book-page.with(title: "Abstract Algebra (1): Set Theory and Categories")
+#show: book-page.with(title: "Abstract Algebra (1): Naive Set Theory")
 
 #import "@preview/ctheorems:1.1.3": *
 #show: thmrules.with(qed-symbol: $square$)
@@ -16,7 +16,7 @@
 )
 
 #align(center, text(17pt)[
-  = Abstract Algebra (1): Set Theory and Categories
+  = Abstract Algebra (1): Naive Set Theory
 ])
 
 = 1 Naive Set Theory
@@ -120,3 +120,89 @@ $
 $
 
 // Unfortunately, ∪ and ∩ can't be recognized in displayed math environment
+
+for the union, intersection, disjoint union. product of all sets in $scr(S)$.
+
+= 1.4 Equivalence relations, partitions, quotients
+
+A *relation* on elements of a set $S$ is some special affinity among selections
+of elements of $S$. For example, the relation $<$ on the set $ZZ$ is a way to
+compare the size of two integers. A relations on a set $S$ is simply a subset
+$R$ of the Cartesian product $S × S$. If $(a,b) ∈ R$, we say that $a$ and $b$
+are related by $R$, and write
+
+$ a R b $
+
+The prototype of a well-behaved relation is $=$, which corresponds to the diagonal
+
+$ {(a,b) ∈ S × S | a = b} = {(a,a) | a ∈ S} ⊆ S × S $
+
+Three properties of this very special relation turn out to be particularly important:
+if $∼$ denotes for a moment the relation $=$ of equality, then $∼$ satisfies
++ *Reflexivity*: $(∀ a ∈ S) a ∼ a$;
++ *Symmetry*: $(∀ a ∈ S)(∀ b ∈ S) a ∼ b => b ∼ a$;
++ *Transitivity*: $(∀ a ∈ S)(∀ b ∈ S)(∀ c ∈ S), (a ∼ b ∧ b ∼ c) => a ∼ c$.
+
+#definition(number: "1.1")[
+  An *equivalence relation* on a set $S$ is any relation $∼$ satisfying these three
+  properties.
+]
+
+A *partition* of $S$ is a family of disjoint nonempty subsets of $S$, whose union is
+$S$. For example, $scr(S)={{1,4,7},{2,5,8},{3,6},{9}}$ is a partition of the set
+${1,2,3,4,5,6,7,8,9}$. Here is how to get a partition of $S$ from a relation $∼$ on
+$S$: for every element $a ∈ S$, the *equivalence classes* of $a$ is the subset of
+$S$ defined by
+
+$ [a]_∼ := {b ∈ S | b ∼ a} $
+
+then the equivalence classes form a partition $scr(S)_∼$ of $S$.
+
+#proof[
+  Let $S$ be a set with an equivalence relation $∼$. Consider the family of equivalence
+  classes respect to $∼$:
+
+  $ scr(S)_∼ = {[a]_∼ | a ∈ S} $
+
+  Consider an element $[a]_∼$ of $scr(S)_∼$. By the reflexivity of equivalence relation,
+  we know $[a]_∼$ is not empty. Consider $a$ and $b$ are two different elements of $S$,
+  and $a ≁ b$. Using contradiction to prove the proposition: consider there is an element
+  $x ∈ [a]_∼ ∩ [b]_∼$, then $x ∼ a$ and $x ∼ b$. By the transitivity of equivalence 
+  relation, we know $a ∼ b$, and this is a contradiction. Hence all the elements of 
+  $scr(S)_∼$ are disjoint. For $x ∈ S$, we know $x ∈ [x]_∼ ∈ scr(S)_∼$, then
+
+  $ union.big_([a]_∼ ∈ scr(S)_∼)[a]_∼ = S $
+
+  so the equivalence classes form a partition $scr(S)_∼$ of $S$.
+]
+
+Given a partition $scr(S)$ on a set $S$, it is corresponding to an equivalence relation
+on $S$. So the notions of equivalence classes on $S$ and partition of $S$ are really
+equivalent.
+
+#proof[
+  Given a partition $scr(S)$ on a set $S$, we will show how to define an equivalence
+  relation $∼$ such that $scr(S)_∼ = scr(S)$
+
+  For $a,b ∈ S$, $a ∼ b$ if and only if there exists a set $T in scr(S)$ such that
+  $a ∈ T$ and $b ∈ T$. Now we can check $∼$ is an equivalence relation:
+
+  + Reflexivity: $∃ T ∈ scr(S), a ∈ T ∧ a ∈ T <=> a ∼ a$;
+  + Symmetry: $a ∼ b <=> ∃ T ∈ scr(S), a ∈ T ∧ b ∈ T <=> b ∼ a$;
+  + Transitivity:
+
+      $ a ∼ b ∧ b ∼ c 
+        <=> & (∃ T_1 ∈ scr(S), a ∈ T_1 ∧ b ∈ T_1) ∧
+              (∃ T_2 ∈ scr(S), b ∈ T_2 ∧ c ∈ T_2) \
+        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (b ∈ T_1 ∩ T_2) ∧ (c ∈ T_2) \
+        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 ∩ T_2 != ∅) \
+        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 = T_2) \ 
+        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_1) \
+       <=> & a ∼ c $
+
+  So we know $∼$ is an equivalence relation. Now we want prove that $scr(S)=scr(S)_∼$:
+
+  + $scr(S) ⊆ scr(S)_∼$: Note that
+
+    $ T_1 ∈ sans(S) & => ∀ a, b ∈ T_1 $
+]
