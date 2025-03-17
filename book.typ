@@ -26,7 +26,7 @@
           - #chapter(none)[Linear Algebra]
             - #chapter("./post/Math/Algebra/Linear-Algebra-basic-01-vector-spaces.typ")[Linear Algebra (1): Vector Spaces]
           - #chapter(none)[Abstract Algebra]
-            - #chapter("./post/Math/Algebra/Abstract-Algebra-basic-01-naive-set-theory.typ")[Abstract Algebra (1): Naive Set Theory]
+            - #chapter("./post/Math/Algebra/Abstract-Algebra-basic-01-categories-theory.typ")[Abstract Algebra (1): Categories Theory]
         - #chapter(none)[Number Theory]
           - #chapter(none)[Elementary Number Theory]
             - #chapter("./post/Math/Number-Theory/Elementary-basic-01-integers.typ")[Elementary Number Theory (1): Integers]

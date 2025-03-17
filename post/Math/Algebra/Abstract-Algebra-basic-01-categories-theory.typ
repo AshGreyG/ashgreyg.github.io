@@ -1,6 +1,6 @@
 #import "@preview/fletcher:0.5.3" as fletcher: diagram, node, edge
 #import "/book.typ": book-page
-#show: book-page.with(title: "Abstract Algebra (1): Naive Set Theory")
+#show: book-page.with(title: "Abstract Algebra (1): Categories Theory")
 
 #import "@preview/ctheorems:1.1.3": *
 #show: thmrules.with(qed-symbol: $square$)
@@ -16,7 +16,7 @@
 )
 
 #align(center, text(17pt)[
-  = Abstract Algebra (1): Naive Set Theory
+  = Abstract Algebra (1): Categories Theory
 ])
 
 = 1 Naive Set Theory
