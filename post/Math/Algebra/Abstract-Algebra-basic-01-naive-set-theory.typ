@@ -191,18 +191,51 @@ equivalent.
   + Symmetry: $a ∼ b <=> ∃ T ∈ scr(S), a ∈ T ∧ b ∈ T <=> b ∼ a$;
   + Transitivity:
 
-      $ a ∼ b ∧ b ∼ c 
-        <=> & (∃ T_1 ∈ scr(S), a ∈ T_1 ∧ b ∈ T_1) ∧
-              (∃ T_2 ∈ scr(S), b ∈ T_2 ∧ c ∈ T_2) \
-        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (b ∈ T_1 ∩ T_2) ∧ (c ∈ T_2) \
-        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 ∩ T_2 != ∅) \
-        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 = T_2) \ 
-        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_1) \
-       <=> & a ∼ c $
+    $ a ∼ b ∧ b ∼ c 
+      <=> & (∃ T_1 ∈ scr(S), a ∈ T_1 ∧ b ∈ T_1) ∧
+            (∃ T_2 ∈ scr(S), b ∈ T_2 ∧ c ∈ T_2) \
+       => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (b ∈ T_1 ∩ T_2) ∧ (c ∈ T_2) \
+       => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 ∩ T_2 != ∅) \
+       => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 = T_2) \ 
+       => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_1) \
+      <=> & a ∼ c $
 
   So we know $∼$ is an equivalence relation. Now we want prove that $scr(S)=scr(S)_∼$:
 
   + $scr(S) ⊆ scr(S)_∼$: Note that
 
-    $ T_1 ∈ sans(S) & => ∀ a, b ∈ T_1 $
+    $ T ∈ scr(S) 
+      => & ∀ a, b ∈ T, a ∼ b \
+     <=> & T ∈ scr(S)_∼ $
+    
+      The first deduction is from the our definition of relation $∼$.
+  
+  + $scr(S)_∼ ⊆ scr(S)$: Given any $[a]_∼ ∈ scr(S)_∼$, there exists $T ∈ scr(S)$
+    such that $a ∈ T$, we have
+
+    $ ∀ a' ∈ T => a ∼ a' <=> a' ∈ [a]_∼  $
+
+    So we get $T ⊆ [a]_∼$. Also we have
+
+    $ a' ∈ [a]_∼ 
+      <=> & ∃ P ∈ scr(S), (a ∈ P) ∧ (a' ∈ P) \
+       => & ∃ P ∈ scr(S), (a ∈ T ∩ P) ∧ (a' ∈ P) \ 
+       => & ∃ P ∈ scr(S), (T ∩ P != ∅) ∧ (a' ∈ P) \
+       => & ∃ P ∈ scr(S), (T = P) ∧ (a' ∈ P) \
+       => & a' ∈ T $
+    
+    So we get $[a]_∼ ⊆ T$, so $[a]_∼ = T ∈ scr(S)$. Therefore $scr(S)_∼ ⊆ scr(S)$.
+    We can finally conclude that $scr(S)$ and $scr(S)_∼$ is equal.
+]
+
+For example, for a partition ${{1,2},{3,4},{5}}$ of set ${1,2,3,4,5}$, we can find
+the equivalence relation $∼$ whose equivalence classes form the partition that we want:
+
+$ {(1,1),(2,2),(1,2),(2,1),(3,3),(4,4),(3,4),(4,3),(5,5)} $
+
+#definition(number: "1.2")[
+  The *quotient* of the set $S$ with respect to (w.r.t) the equivalence relation $∼$ is
+  the set
+
+  $ S\/ ∼ := scr(S)_∼ $
 ]
