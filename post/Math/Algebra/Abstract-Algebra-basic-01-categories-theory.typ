@@ -239,3 +239,53 @@ $ {(1,1),(2,2),(1,2),(2,1),(3,3),(4,4),(3,4),(4,3),(5,5)} $
 
   $ S\/ ∼ := scr(S)_∼ $
 ]
+
+= 2 Functions Between Sets
+
+Sets interact with each other through *functions*. A function $f$ is captured by the
+information of which element $b$ of $B$ is the image of any given element $a$ of $A$.
+A function is the subset of $A × B$:
+
+$ Γ_f := {(a,b) ∈ A × B | b = f(a)} ⊆ A × B $
+
+This set $Γ_f$ is the *graph* of $f$. Not all subsets $Γ ⊆ A × B$ correspond to 
+functions, only subsets that satisfy
+
+$ (∀ a ∈ A)(∃! b ∈ B) space.en (a,b) ∈ Γ_f $
+
+To announce that $f$ is a function from a set $A$ to a set $B$, we can write $f:A -> B$,
+or draws the following diagram:
+
+#figure(
+  diagram($
+    A edge(f, ->) & B
+  $)
+)
+
+The action of a function $f:A -> B$ on an element $a ∈ A$ is sometime indicated by a
+decorated arrow like $a |-> f(a)$. The collection of all functions from a set $A$ to
+a set $B$ is itself a set denoted $B^A$, we can view $B^A$ as a special subset of the
+power set of $A × B$.
+
+Every set $A$ comes equipped with a very special function, whose graph is the diagonal
+in $A × A$: the *identity function* on $A$:
+
+$ "id"_A : A -> A $
+
+More generally, the inclusion of any subset $S$ of a set $A$ determines a function $S -> A$, simply
+sending every element $s$ of $S$ to itself in $A$. 
+
+If $S$ is a subset of $A$, we denote $f(S)$ the subset of $B$ defined by
+
+$ f(S) := {b ∈ B | (∃ a ∈ S) b = f(a)} $
+
+$f(S)$ is the subset of $B$ consisting of all elements that are images of elements
+of $S$ by the function $f$. The largest such subset, that is $f(A)$, is called the image
+of $f$, denoted $"im" f$.
+
+$f|_S$ denotes the restriction of $f$ to the subset $S$: this is the function $S -> B$
+defined by
+
+$ (∀ s ∈ S): f|_S (s) = f(s) $
+
+That is, $f|_S$ is the composition $f ∘ i$ where $i: S -> A$.
