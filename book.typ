@@ -14,6 +14,9 @@
 
     = Notes
       - #chapter(none)[Computer Science]
+        - #chapter(none)[Algorithm]
+          - #chapter(none)[CLRS]
+            - #chapter("./post/CS/Algorithm/CLRS-01-sorting.typ")[CLRS (1): Sorting]
         - #chapter(none)[Language]
         - #chapter(none)[Cryptography]
           - #chapter(none)[Basic]
