@@ -77,7 +77,7 @@ $Ω(n)$.
   If $0 ≤ i < j < n$ and $upright("A")[i] > upright("A")[j]$, we call pair $(i,j)$ an
   inversion. For any two indexes $(i,j)$ here $i<j$, there is a $display(1/2)$
   probability that $upright("A")[i]>upright("A")[j]$. Because there are 
-  $display(mat(n;2)=n(n-1)/2)$, so the expectation of number of inversion is
+  $display(mat(n;2)=n(n-1)/2)$ inversions, so the expectation of number of inversion is
 
   $ EE(i)=1/2 × n(n-1)/2 = n(n-1)/4 $
 
@@ -105,8 +105,8 @@ We can use memorization to shorten the execution time:
             + $sans("swap")(upright("A")[i-1], upright("A")[i])$
             + swapped ← $sans("true")$
             + j ← i
-            + ▷ Bubble sort will move the largest element to the tail, after
-              last swapping index the sub-array has been sorted.
+            + ▷ Bubble sort will move the largest element to the tail, the sub-array
+             after last swapping index has been sorted.
             + ▷ When there is no swap, the array has been sorted.
   ]
 )
@@ -122,7 +122,7 @@ Here is the benchmark of bubble sort and memorized bubble sort:
   ),
   figure(
     image("Bubble-Sort-Benchmark-Memory.svg", width: 50%),
-    caption: [Execution time benchmark of bubble sort \
+    caption: [Execution memory benchmark of bubble sort \
       and its memorized version]
   ),
 )
