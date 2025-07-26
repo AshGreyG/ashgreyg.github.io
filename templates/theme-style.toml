@@ -1,8 +1,8 @@
 
 [light]
 color-scheme = "light"
-main-color = "#f9f3e8"
-dash-color = "#586357"
+main-color = "#586357"
+dash-color = "#f9f3e8"
 code-theme = ""
 
 [rust]
