@@ -1,15 +1,14 @@
 #import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
-#show: book-page.with(title: "CLRS (1): Sorting")
+#import "/templates/theorem.typ": *
+#import "/templates/color.typ" as color
 
-#import "@preview/ctheorems:1.1.3": *
+#show: book-page.with(title: "CLRS (1): Sorting")
 #show: thmrules.with(qed-symbol: $square$)
 
-#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"))
-#let definition = thmbox("definition", "Definition", fill: rgb("#e8e8f8"))
-
-#let proof = thmproof("proof", "Proof")
+#show : set text(fill: color.content)
+#set page(fill: color.background)
 
 #align(center, text(17pt)[
   = CLRS (1): Sorting
@@ -81,7 +80,7 @@ $Ω(n)$.
 
   $ EE(i)=1/2 × n(n-1)/2 = n(n-1)/4 $
 
-  Comparing still needs $display(n(n-1)/2)$ steps, A swapping step is to
+  Comparison still needs $display(n(n-1)/2)$ steps, A swapping step is to
   eliminate an inversion, so swapping needs $display(n(n-1)/4)$ steps.
 
   The average-case complexity is $Θ(n^2)$.
@@ -126,3 +125,36 @@ Here is the benchmark of bubble sort and memorized bubble sort:
       and its memorized version]
   ),
 )
+
+The peaks of execution memory chart are not the real peak of execution, actually
+the space complexity of bubble sort is $O(1)$.
+
+= 1.2 Insertion Sort
+
+Insertion Sort is a simple sorting algorithm that builds the final sorted array
+one item at a time by comparisons. Insertion sort iterates, consuming one input
+element each repetition, and grows a sorted output list. At each iteration, and
+grows a sorted output list.
+
+At each iteration, insertion sort removes one element from the input data, finds
+the correct location within the sorted list, and inserts it here. It repeats until
+no input elements remain.
+
+#pseudocode(
+  [Algorithm 3: Insertion Sort],
+  [
+    + *procedure* #smallcaps("Insertion-Sort") (A)
+    + ▷ A is an array, in the following code, $upright("A")[i]$ represents the
+        key of element.
+    + $i$ ← 1
+    + *while* $i < sans("length")(upright("A"))$ *do*
+      + $j$ ← $i$
+      + *while* $j > 0 sans("and") upright("A")[j-1] > upright("A")[j]$
+        + $sans("swap")(upright("A")[i], upright("A")[i-1])$
+        + ▷ When $upright("A")[j-1] ≤ upright("A")[j]$, the insertion position has been found.
+        + $j$ ← $j-1$
+      + $i$ ← $i+1$
+  ]
+)
+
+In the worst case, 

@@ -1,14 +1,13 @@
 #import "@preview/fletcher:0.5.3" as fletcher: diagram, node, edge
 #import "/book.typ": book-page
-#show: book-page.with(title: "Linear Algebra (1): Vector Spaces")
+#import "/templates/theorem.typ": *
+#import "/templates/color.typ" as color
 
-#import "@preview/ctheorems:1.1.3": *
+#show: book-page.with(title: "Linear Algebra (1): Vector Spaces")
 #show: thmrules.with(qed-symbol: $square$)
 
-#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"))
-#let definition = thmbox("definition", "Definition", fill: rgb("#e8e8f8"))
-
-#let proof = thmproof("proof", "Proof")
+#show : set text(fill: color.content)
+#set page(fill: color.background)
 
 #align(center, text(17pt)[
   = Modern Cryptography (1): Introduction
