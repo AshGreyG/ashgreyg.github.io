@@ -17,6 +17,7 @@
         - #chapter(none)[Algorithm]
           - #chapter(none)[CLRS]
             - #chapter("./post/CS/Algorithm/CLRS-01-sorting.typ")[CLRS (1): Sorting]
+            - #chapter("./post/CS/Algorithm/CLRS-02-data-structure.typ")[CLRS (2): Data Structure]
         - #chapter(none)[Language]
         - #chapter(none)[Cryptography]
           - #chapter(none)[Basic]

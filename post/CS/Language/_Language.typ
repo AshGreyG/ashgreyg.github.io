@@ -1,5 +1,9 @@
 #import "/book.typ": book-page
+#import "/templates/color.typ" as color
+
 #show: book-page.with(title: "Language notes index")
+#show : set text(fill: color.content)
+#set page(fill: color.background)
 
 = C++
 
