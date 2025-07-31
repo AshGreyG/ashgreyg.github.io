@@ -112,3 +112,33 @@ height of the heap to be the height of its root. Its height is $Θ(lg n)$.
 
 = 1.2 Maintaining the Heap Property
 
+In order to maintain the max-heap property, we call the procedure $sans("Max-Heapify")$.
+Its inputs are an array $upright("A")$ and an index $i$ into the array. When it is called,
+it assumes that the binary trees rooted at $sans("Left-Child")(i)$ and $sans("Right-Child")(i)$
+are max-heaps, but that $upright("A")[i]$ might be smaller than its children, thus
+violating the max-heap property. $sans("Max-Heapify")$ lets the value at $upright("A")[i]$
+float down in the max-heap so that the subtree rooted at index $i$ obeys the max-heap
+property:
+
+#pseudocode(
+  [Algorithm 2: Max Heapify],
+  [
+    + *procedure* #smallcaps("Max-Heapify") $(upright("A"),i)$
+      + $l$ ← $sans("Left-Child")(i)$
+      + $r$ ← $sans("Right-Child")(i)$
+      + *if* $l ≤ upright("A")."heap-size" sans("and") upright("A")[l] > upright("A")[i]$ *then*
+        + largest ← $l$
+      + *else*
+        + largest ← $i$
+      + *if* $r ≤ upright("A")."heap-size" sans("and") upright("A")[r] > upright("A")["largest"]$ *then*
+        + largest ← $r$
+      + *if* $"largest" ≠ i$ *then*
+        + $sans("swap")(upright("A")[i], upright("A")["largest"])$
+        + $sans("Max-Heapify")(upright("A"), "largest")$
+  ]
+)
+
+The running time of $sans("Max-Heapify")$ on a subtree of size $n$ rooted at a given node
+$i$ is the $Θ(1)$ time to fix up the relationships among the elements $upright("A")[i]$,
+$upright("A")[sans("Left-Child")(i)]$ and $upright("A")[sans("Right-Child")(i)]$. The children's
+subtrees each have size.
