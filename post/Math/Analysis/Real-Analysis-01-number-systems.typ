@@ -8,7 +8,29 @@
 #show: thmrules.with(qed-symbol: $square$)
 
 #show: set text(fill: color.content)
-#set page(fill: color.background)
+#show: set page(
+  fill: color.background,
+  numbering: "1"
+)
+#show link: it => {
+  set text(fill: color.content-reference-link)
+  it
+}
+
+#let content-highlight(content) = box(
+  content,
+  outset: 0.1em,
+  fill: rgb(color.content-highlight)
+)
+
+// This function is to solve the `highlight` function doesn't work for inline
+// math mode, @see:
+// 
+// https://github.com/typst/typst/issues/2200
+// 
+// and its solution:
+// 
+// https://github.com/typst/typst/issues/2200#issuecomment-2669589133
 
 #align(center, text(17pt)[
   = Real Analysis (1): Number Systems
@@ -195,4 +217,119 @@ greatest-lower-bound property.
     holds for all $x,y,z ∈ 𝔽$.
 ]
 
-The field axioms clearly hold in $ℚ$, thus $ℚ$ is a field.
+The field axioms clearly hold in $ℚ$, thus $ℚ$ is a field. There are many useful
+propositions of a field. Here is a proposition I'm interested: if $x ≠ 0$ and
+$y ≠ 0$, then $x y ≠ 0$.
+
+#proof[
+  First let we prove two propositions:
+
+  + *If $x + y = x$ then $y = 0$*. Proof: $y = 0 + y = (-x + x) + y = -x + (x + y) = -x + x = 0$.
+  + *$0x=0$*. Proof: $0x + 0x = (0 + 0)x = 0x$, according to the proposition above, $0x = 0$.
+
+  Assume that $x ≠ 0$, $y ≠ 0$ but $x y = 0$, then
+
+  $ 1 = (1 / y)(1 / x)x y=(1 / y)(1 / x)0 = (1 / y)0 = 0 $
+
+  and that's a contradiction, thus the proposition holds.
+]
+
+#definition(number: "3.2")[
+  An *ordered filed* is a field $𝔽$ which is also an ordered set, such that
+
+  + $x + y < x + z$ if $x,y,z ∈ 𝔽$ and $y < z$.
+  + $x y > 0$ if $x ∈ 𝔽$, $y ∈ 𝔽$, $x > 0$ and $y > 0$.
+
+  If $x > 0$, we call $x$ *positive*; if $x < 0$, $x$ is *negative*.
+]
+
+= 4 The Real Field
+
+#theorem(number: "4.1")[
+  There exists an ordered field $ℝ$ which has the least-upper-bound property. Moreover,
+  $ℝ$ contains $ℚ$ as a subfield.
+
+  The second statement means that $ℚ ⊂ ℝ$ and that the operations of addition and
+  multiplication in $ℝ$, when applied to members of $ℚ$, coincide with the usual operations
+  on rational numbers; also, the positive rational numbers are positive elements of
+  $ℝ$. The members of $ℝ$ are called *real numbers*.
+]
+
+#proof[
+  + *Step 1* The members of $ℝ$ will be certain subsets of $ℚ$, called *cuts*. By definition,
+    a cut is any set $α ⊆ ℚ$ with the following properties:
+
+    + $α$ is not empty, and $α ≠ ℚ$. <cut-property-1>
+    + If $p ∈ α, q ∈ ℚ$, and $q < p$, then $q ∈ α$. <cut-property-2>
+    + If $p ∈ α$, then $p < r$ for some $r ∈ α$. <cut-property-3>
+
+    Notice that 3 simply says that $α$ has no largest member, 2 implies two facts which will
+    be used freely:
+
+    - If $p ∈ α$ and $q ∉ α$, then $p < q$.
+    - If $r ∉ α$ and $r < s$, then $s ∉ α$.
+
+    *Notice cut $α$ divides the $ℚ$ into two parts: the left part is $α$, the right
+    part is $ℚ\\α$.*
+
+  + *Step 2* Define $α < β$ to mean: $α$ is a proper subset of $β$.
+
+    If $α < β$ and $β < γ$ it is clear that $α < γ$. (A proper subset of a proper subset is
+    a proper subset). And it's also clear that at most one of the three relations $α < β$,
+    $α = β$ and $α > β$ can hold for any pair $α, β$. To show that at least one holds, assume
+    that the first two fail. Then $α$ is not a subset of $β$. Hence there is a $p ∈ α$ with
+    $p ∉ β$. If $q ∈ β$, it shows that $q < p$ since $p ∉ β$, hence $q ∈ α$ (according to
+    the property 2 of cut). Thus $β ⊂ α$, when $α ≠ β$ we have $β < α$.
+
+    Thus $ℝ$ is now an ordered set.
+
+  + *Step 3* Now we prove *the ordered set $ℝ$ has the least-upper-bound property*.
+
+    To prove this, let $A$ be a nonempty subset of $ℝ$, and assume that $β ∈ ℝ$ is an upper
+    bound of $A$ (*Notice $ℝ$ and its nonempty subset $A$ are all the sets of cuts*). Define
+    $γ$ to be the union of all $α ∈ A$. We shall prove that $γ ∈ ℝ$ (that is to say, $γ$
+    is a cut) and that $γ = "sup" A$.
+
+    $ ⋃_(α ∈ A \ A ⊂ ℝ, A ≠ ∅) α = "sup" A $
+
+    + Since $A$ is not empty, there exists $α_0 ∈ A$. This $α_0$ is not empty. Since $α_0 ⊂ γ$,
+      #content-highlight[$γ$ is not empty]. Next, $γ ⊂ β$ since $α < β$ for every $α ∈ A$ because $β$
+      is the upper bound of $A$. #content-highlight[So $γ ≠ ℚ$]. Thus $γ$ satisfies
+      #link(<cut-property-1>)[property 1 of cut].
+
+      // There is a problem with normal form reference, text cannot be referenced @see:
+      // 
+      // https://typst.app/docs/reference/model/ref/
+      //
+      // and its solution is to use #link rather than #ref
+
+    + Pick $p ∈ γ$, then $p ∈ α_1$ for some $α_1 ∈ A$. #content-highlight[If $q < p$, 
+      then $q ∈ α_1$, hence $q ∈ γ$]. This proves the #link(<cut-property-2>)[property 2].
+
+    + If $r ∈ α_1$ is so chosen that $r > p$, we see that $r ∈ γ$ since $α_1 ⊂ γ$ and therefore
+      $γ$ satisfies #link(<cut-property-3>)[property 3].
+
+    Thus $γ$ is a cut and $γ ∈ ℝ$. It's clear that $α ≤ γ$ for every $α ∈ A$. Suppose
+    $δ < γ$. Then there is an $s ∈ γ$ such that $s ∉ δ$. Since $s ∈ γ$, so $s ∈ α_2$ for
+    some $α_2 ∈ A$. Hence $δ < α_2$ and $δ$ is not an upper bound of $A$.
+
+    So $γ = "sup" A$.
+
+  + *Step 4* If $α ∈ ℝ$ and $β ∈ ℝ$, we define $α + β$ to be the set of all sums $r + s$,
+    where $r ∈ α$ and $s ∈ β$.
+
+    We define $0^*$ to be the set of all negative rational numbers, we know $0^*$ is a
+    cut of $ℚ$. We verify that *the axioms for addition* hold in $ℝ$, with $0^*$ playing
+    the role of $ℚ$.
+
+    - (A1) We have to show that $α + β$ is a cut. Because $ℚ$ is a ordered field, so
+      for every $r ∈ α$ and $s ∈ β$, $r + s ∈ ℚ$, that's to say $α + β ⊆ ℚ$ and it's not
+      empty. Take $r' ∉ α$ and $s' ∉ β$. Then $r' + s' > r + s$ for all choices of
+      $r ∈ α$ and $s ∈ β$. Thus $r' + s' ≠ α + β$. So $α + β ≠ ℚ$. It follows that
+      #content-highlight[$α + β$ has property 1 of cut].
+
+      Pick $p ∈ α + β$. Then exists $r ∈ α, s ∈ β$, $r + s = p$. If $q < p$, then
+      $q - s < r$, so $q - s ∈ α$, thus $q = (r - s) + s ∈ α + β$. #content-highlight[Thus
+      $$]
+
+]
