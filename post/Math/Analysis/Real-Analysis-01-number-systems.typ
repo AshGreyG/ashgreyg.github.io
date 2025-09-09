@@ -36,7 +36,7 @@
   = Real Analysis (1): Number Systems
 ])
 
-= 1 Introduction
+= 1 Introduction <section-1-introduction>
 
 We now show that the equation
 
@@ -96,9 +96,9 @@ system has certain gaps. The real number system fills these gaps.
   *proper* subset of $B$.
 
   If $A ⊂ B$ and $B ⊂ A$, we write $A = B$. Otherwise, $A ≠ B$.
-]
+] <definition-1.1>
 
-= 2 Ordered Sets
+= 2 Ordered Sets <section-2-ordered-sets>
 
 #definition(number: "2.1")[
   Let $S$ be a set. An *order* on $S$ is a relation, denoted by $<$, with the following
@@ -107,11 +107,11 @@ system has certain gaps. The real number system fills these gaps.
 
     $ x < y, x = y, y < x $
 
-    is true
-  - If $x, y, z ∈ S$, if $x < y$ and $y < z$, then $x < z$.
+    is true <order-property-1>
+  - If $x, y, z ∈ S$, if $x < y$ and $y < z$, then $x < z$. <order-property-2>
 
   An *ordered set* is a set $S$ in which an order is defined.
-]
+] <definition-2.1>
 
 For example, $ℕ$ and $ℚ$ are both ordered sets.
 
@@ -119,8 +119,8 @@ For example, $ℕ$ and $ℚ$ are both ordered sets.
   Suppose $S$ is an ordered set, $E ⊂ S$, and $E$ is bounded above. Suppose there
   exists an $α ∈ S$ with the following properties:
 
-  - $α$ is an upper bound of $E$.
-  - If $γ < α$ then $γ$ is not an upper bound of $E$.
+  - $α$ is an upper bound of $E$. <ordered-set-property-1>
+  - If $γ < α$ then $γ$ is not an upper bound of $E$. <ordered-set-property-2>
 
   Then $α$ is called the *least upper bound* of $E$ and that there is at most one
   such $α$. It's also called the *supremum* of $E$, and we write
@@ -134,7 +134,7 @@ For example, $ℕ$ and $ℚ$ are both ordered sets.
 
   means that $α$ is a lower bound of $E$ and that no $β$ with $β > α$ is a lower
   bound of $E$.
-]
+] <definition-2.2>
 
 + Consider the sets $A$ and $B$ of example in introduction as subsets of the ordered
   set $ℚ$. The set $A$ is bounded above. In fact the upper bounds of $A$ are exactly
@@ -155,7 +155,7 @@ For example, $ℕ$ and $ℚ$ are both ordered sets.
 #definition(number: "2.3")[
   An ordered set $S$ is said to have the *least-upper-bound property* if the following
   is true: If $E ⊂ S$ is not empty, and $E$ is bounded above, then $"sup" E$ exists in $S$.
-]
+] <definition-2.3>
 
 So the example above shows that $ℚ$ does not have the least-upper-bound property. We
 shall show that every ordered set with the least-upper-bound property also has the
@@ -169,16 +169,17 @@ greatest-lower-bound property.
   $ α = "sup" L $
 
   exists in $S$ and $α = "inf" B$. In particular, $"inf" B$ exists in $S$.
-]
+] <theorem-2.4>
 
 #proof[
   Since $B$ is not empty and it's bounded below. $L$ consists of exactly those $y ∈ S$
   which satisfy $y ≤ x$ for every $x ∈ B$. Every $x ∈ B$ is an upper bound of $L$. Thus
   $L$ is bounded above. S is an ordered set with the least-upper-bound property, so
-  according to definition 2.3, $"sup" L$ exists in $S$.
+  according to #link(<definition-2.3>)[definition 2.3], $"sup" L$ exists in $S$.
 
-  For $γ < α$, according to definition 2.2, $γ$ is not an upper bound of $L$, hence
-  $γ ∉ B$. It follows that $α ≤ x$ for every $x ∈ B$. Thus $α ∈ L$.
+  For $γ < α$, according to #link(<definition-2.2>)[definition 2.2], $γ$ is not
+  an upper bound of $L$, hence $γ ∉ B$. It follows that $α ≤ x$ for every $x ∈ B$.
+  Thus $α ∈ L$.
 
   If $α < β$ then $β ∉ L$, since $α$ is an upper bound of $L$.
 
@@ -192,30 +193,40 @@ greatest-lower-bound property.
   A field is a set $𝔽$ with two operations, called *addition* and *multiplication*,
   which satisfy the following so-called *field axioms* (A), (M) and (D): 
   
-  - *(A) Axioms for addition*
+  - *(A) Axioms for addition* <axiom-addition>
     - (A1) $x ∈ 𝔽$ and $y ∈ 𝔽$, then their sum $x + y ∈ 𝔽$.
+      <axiom-addition-a1>
     - (A2) Addition is commutative: $x + y = y + x$ for all $x, y ∈ 𝔽$.
+      <axiom-addition-a2>
     - (A3) Addition is associative: $(x + y) + z = x + (y + z)$ for all $x, y, z ∈ 𝔽$.
+      <axiom-addition-a3>
     - (A4) $𝔽$ contains an element $0$ such that $0 + x = x$ for every $x ∈ 𝔽$.
+      <axiom-addition-a4>
     - (A5) To every $x ∈ 𝔽$ corresponds an element $-x ∈ 𝔽$ such that
 
       $ x + (-x) = 0 $
+      <axiom-addition-a5>
 
-  - *(M) Axioms for multiplication*
+  - *(M) Axioms for multiplication* <axiom-multiplication>
     - (M1) If $x ∈ 𝔽$, then their product $x y$ is in $𝔽$.
+      <axiom-multiplication-m1>
     - (M2) Multiplication is commutative: $x y = y x$ for all $x, y ∈ 𝔽$.
+      <axiom-multiplication-m2>
     - (M3) Multiplication is associative: $(x y)z = x(y z)$ for all $x, y, z ∈ 𝔽$.
+      <axiom-multiplication-m3>
     - (M4) $𝔽$ contains an element $1 ≠ 0$ such that $1 x = x$ for every $x ∈ 𝔽$.
+      <axiom-multiplication-m4>
     - (M5) If $x ∈ 𝔽$ and $x ≠ 1$ then there exists an element $1 \/ x ∈ 𝔽$
       such that
 
       $ x⋅(1 \/ x) = 1 $
+      <axiom-multiplication-m5>
 
-  - *(D) The distributive law*
+  - *(D) The distributive law* <axiom-distributive>
     $ x(y + z) = x y + x z $
 
     holds for all $x,y,z ∈ 𝔽$.
-]
+] <definition-3.1>
 
 The field axioms clearly hold in $ℚ$, thus $ℚ$ is a field. There are many useful
 propositions of a field. Here is a proposition I'm interested: if $x ≠ 0$ and
@@ -241,7 +252,7 @@ $y ≠ 0$, then $x y ≠ 0$.
   + $x y > 0$ if $x ∈ 𝔽$, $y ∈ 𝔽$, $x > 0$ and $y > 0$.
 
   If $x > 0$, we call $x$ *positive*; if $x < 0$, $x$ is *negative*.
-]
+] <definition-3.2>
 
 = 4 The Real Field
 
@@ -253,7 +264,7 @@ $y ≠ 0$, then $x y ≠ 0$.
   multiplication in $ℝ$, when applied to members of $ℚ$, coincide with the usual operations
   on rational numbers; also, the positive rational numbers are positive elements of
   $ℝ$. The members of $ℝ$ are called *real numbers*.
-]
+] <theorem-4.1>
 
 #proof[
   + *Step 1* The members of $ℝ$ will be certain subsets of $ℚ$, called *cuts*. By definition,
@@ -266,8 +277,8 @@ $y ≠ 0$, then $x y ≠ 0$.
     Notice that 3 simply says that $α$ has no largest member, 2 implies two facts which will
     be used freely:
 
-    - If $p ∈ α$ and $q ∉ α$, then $p < q$.
-    - If $r ∉ α$ and $r < s$, then $s ∉ α$.
+    - If $p ∈ α$ and $q ∉ α$, then $p < q$. <cut-fact-1>
+    - If $r ∉ α$ and $r < s$, then $s ∉ α$. <cut-fact-2>
 
     *Notice cut $α$ divides the $ℚ$ into two parts: the left part is $α$, the right
     part is $ℚ\\α$.*
