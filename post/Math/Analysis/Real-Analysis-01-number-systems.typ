@@ -333,14 +333,36 @@ $y ≠ 0$, then $x y ≠ 0$.
     cut of $ℚ$. We verify that *the axioms for addition* hold in $ℝ$, with $0^*$ playing
     the role of $ℚ$.
 
-    - (A1) We have to show that $α + β$ is a cut. Because $ℚ$ is a ordered field, so
-      for every $r ∈ α$ and $s ∈ β$, $r + s ∈ ℚ$, that's to say $α + β ⊆ ℚ$ and it's not
-      empty. Take $r' ∉ α$ and $s' ∉ β$. Then $r' + s' > r + s$ for all choices of
-      $r ∈ α$ and $s ∈ β$. Thus $r' + s' ≠ α + β$. So $α + β ≠ ℚ$. It follows that
-      #content-highlight[$α + β$ has property 1 of cut].
+    - #link(<axiom-addition-a1>)[(A1)] We have to show that $α + β$ is a cut. Because 
+      $ℚ$ is a ordered field, so for every $r ∈ α$ and $s ∈ β$, $r + s ∈ ℚ$, that's
+      to say $α + β ⊆ ℚ$ and it's not empty. Take $r' ∉ α$ and $s' ∉ β$. Then 
+      $r' + s' > r + s$ for all choices of $r ∈ α$ and $s ∈ β$. Thus $r' + s' ≠ α + β$.
+      So $α + β ≠ ℚ$. It follows that $α + β$ has #link(<cut-property-1>)[property 1 of cut].
 
       Pick $p ∈ α + β$. Then exists $r ∈ α, s ∈ β$, $r + s = p$. If $q < p$, then
-      $q - s < r$, so $q - s ∈ α$, thus $q = (r - s) + s ∈ α + β$. #content-highlight[Thus
-      $$]
+      $q - s < r$, so $q - s ∈ α$, thus #content-highlight[$q = (r - s) + s ∈ α + β$].
+      Thus #link(<cut-property-2>)[property 2 of cut] holds.
+
+      Choose $t ∈ α$ so that $t > r$. Then $p < t + s$ and $t + s ∈ α + β$, thus
+      #link(<cut-property-3>)[property 3 of cut] holds.
+
+    - #link(<axiom-addition-a2>)[(A2)] $α + β$ is the set of all $r + s$ with $r ∈ α$
+      and $s ∈ β$. By the same definition, $β + α$ is the set of all $s + r$. Since
+      $r + s = s + r$ for all $r,s ∈ ℚ$, #content-highlight[so we have $α + β = β + α$].
+
+    - #link(<axiom-addition-a3>)[(A3)] This follows from the associative law in $ℚ$.
+      $(α + β) + γ$ is the set of $(r + s) + t$ with $r ∈ α$, $s ∈ β$, $t ∈ γ$.
+      By the same definition, $α + (β + γ)$ is the set of $r + (s + t)$. According to
+      the associative addition law of $ℚ$, #content-highlight[so we have $(α + β) + γ = α + (β + γ)$].
+
+    - #link(<axiom-addition-a4>)[(A4)] If $r ∈ α$ and $s ∈ 0^*$, then $r + s < r$,
+      hence $r + s ∈ α$. #content-highlight[Thus $α + 0^* ⊂ α$]. We need to obtain
+      the opposite: pick $p,r ∈ α$ and $r > p$. So $p - r ∈ 0^*$,
+      and $p = r + (p - r) ∈ α + 0^*$. So #content-highlight[$α ⊂ α + 0^*$] holds.
+      Thus we have $α = α + 0^*$.
+
+    - #link(<axiom-addition-a5>)[(A5)] Fix $α ∈ ℝ$, let $β$ be the set of all $p$
+      with the following property: *There exists $r > 0$ such that $-p - r ∉ α$*.
+      Some rational numbers smaller than $-p$ fails to be in $α$.
 
 ]
