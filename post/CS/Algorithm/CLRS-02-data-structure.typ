@@ -126,11 +126,11 @@ property:
     + *procedure* #smallcaps("Max-Heapify") $(upright("A"),i)$
       + $l$ ← $sans("Left-Child")(i)$
       + $r$ ← $sans("Right-Child")(i)$
-      + *if* $l ≤ upright("A")."heap-size" sans("and") upright("A")[l] > upright("A")[i]$ *then*
+      + *if* $l ≤ upright("A")."heap-size" - 1 sans("and") upright("A")[l] > upright("A")[i]$ *then*
         + largest ← $l$
       + *else*
         + largest ← $i$
-      + *if* $r ≤ upright("A")."heap-size" sans("and") upright("A")[r] > upright("A")["largest"]$ *then*
+      + *if* $r ≤ upright("A")."heap-size" - 1 sans("and") upright("A")[r] > upright("A")["largest"]$ *then*
         + largest ← $r$
       + *if* $"largest" ≠ i$ *then*
         + $sans("swap")(upright("A")[i], upright("A")["largest"])$
@@ -140,5 +140,10 @@ property:
 
 The running time of $sans("Max-Heapify")$ on a subtree of size $n$ rooted at a given node
 $i$ is the $Θ(1)$ time to fix up the relationships among the elements $upright("A")[i]$,
-$upright("A")[sans("Left-Child")(i)]$ and $upright("A")[sans("Right-Child")(i)]$. The children's
-subtrees each have size.
+$upright("A")[sans("Left-Child")(i)]$ and $upright("A")[sans("Right-Child")(i)]$.
+
+For a max-heap of height $h$, if left child subtree is full but right child is empty at
+the last level. Left child subtree has $display(2^h)-1$ nodes, right child subtree has
+$display(2^(h-1)-1)$ nodes. So
+
+$ T(n) ≤ T((2n)/3) + Θ(1) $

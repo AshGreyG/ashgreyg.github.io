@@ -34,11 +34,11 @@ $S$, satisfying some property $P$. One may written as
 $ A={s ∈ S | s "satisfies" P} $
 
 + $∅$: the *empty set*, containing no elements;
-+ $NN$: the set of *natural numbers*;
-+ $ZZ$: the set of *integers*;
-+ $QQ$: the set of *rational numbers*;
-+ $RR$: the set of *real numbers*;
-+ $CC$: the set of *complex numbers*.
++ $ℕ$: the set of *natural numbers*;
++ $ℤ$: the set of *integers*;
++ $ℚ$: the set of *rational numbers*;
++ $ℝ$: the set of *real numbers*;
++ $ℂ$: the set of *complex numbers*.
 
 The term *singleton* is used to refer to any set consisting of precisely one
 element. Thus ${1}$, ${2}$ and ${3}$ are different sets, but they are all
@@ -191,7 +191,7 @@ equivalent.
   + Symmetry: $a ∼ b <=> ∃ T ∈ scr(S), a ∈ T ∧ b ∈ T <=> b ∼ a$;
   + Transitivity:
 
-    $ a ∼ b ∧ b ∼ c 
+    $ a ∼ b ∧ b ∼ c
       <=> & (∃ T_1 ∈ scr(S), a ∈ T_1 ∧ b ∈ T_1) ∧
             (∃ T_2 ∈ scr(S), b ∈ T_2 ∧ c ∈ T_2) \
        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (b ∈ T_1 ∩ T_2) ∧ (c ∈ T_2) \

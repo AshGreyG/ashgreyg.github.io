@@ -7,8 +7,8 @@
 #show: book-page.with(title: "CLRS (1): Sorting")
 #show: thmrules.with(qed-symbol: $square$)
 
-#show : set text(fill: color.content)
-#set page(fill: color.background)
+#show: set text(fill: color.content)
+#show: set page(fill: color.background)
 
 #align(center, text(17pt)[
   = CLRS (1): Sorting

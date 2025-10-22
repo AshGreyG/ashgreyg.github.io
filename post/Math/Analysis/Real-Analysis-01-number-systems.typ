@@ -365,4 +365,46 @@ $y ≠ 0$, then $x y ≠ 0$.
       with the following property: *There exists $r > 0$ such that $-p - r ∉ α$*.
       Some rational numbers smaller than $-p$ fails to be in $α$.
 
+      If $s ∉ α$ and $p = -s - 1$, then $-p-1 ∉ α$, hence $p ∈ β$, So #content-highlight[$β$ is not
+      empty]. If $q ∈ α$, then for $r > 0$, $-(-q) - r < q$, thus $-(-q)-r ∈ α$, so
+      $-q ∉ β$. Hence we have #content-highlight[$β ≠ ℚ$]. Finally we come to
+      #link(<cut-property-1>)[$β$ satisfies property 1 of cut].
+
+      Pick $p ∉ β$ and $r > 0$ so that $-p-r ∉ α$. If $q < p$, then $-q-r>-p-r$,
+      according to the fact 2 of cut, we know $-q-r ∉ α$, hence $q ∈ β$. So
+      #link(<cut-property-2>)[the property 2 of cut holds].
+
+      Pick $display(t = p + r / 2)$, so $t > p$ and $display(-t - r / 2) = -p - r ∉ α$,
+      so that $t ∈ β$, hence #link(<cut-property-3>)[$β$ satisfies property 3 of cut].
+
+      Finally we have proved that $β ∈ ℝ$.
+
+      If $r ∈ α$ and $s ∈ β$, then $-s-t ∉ α$, thus according to fact 2 of cut
+      we know $-s ∉ α$, hence according to fact 1 of cut, $r < -s$, $r + s < 0$.
+      #content-highlight[Thus $α + β ⊂ 0^*$].
+
+      Now to prove the opposite inclusion: we should first prove that $ℚ$ has
+      the *archimedean property*. That is:
+
+      #theorem(number: [4.2 Archimedean Property of $ℚ$])[
+        For every positive rational number $a, b ∈ ℚ^+$, exist natural number $n ∈ ℕ$
+        so that $n ⋅ a > b$
+      ]
+
+      #proof[
+        We denote $a, b$ as (where $p, q, r, s ∈ ℕ, q, s > 0$):
+
+        $ a = p / q, b = r / s $
+
+        So we need to prove that exists a natural number $n$ producing
+
+        $ n ⋅ p / q > r / s $
+
+        that's to prove
+
+        $ n > (r ⋅ q) / (s ⋅ p) $
+        
+        let $n = display(⌊(r ⋅ q) / (s ⋅ p)⌋ + 1)$ and the archimedean property 
+        of $ℚ$ is proved.
+      ]
 ]

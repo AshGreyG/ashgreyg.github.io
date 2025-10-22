@@ -1,14 +1,27 @@
-#import "@preview/fletcher:0.5.3" as fletcher: diagram, node, edge
+#import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
 #import "/book.typ": book-page
-#show: book-page.with(title: "Elementary Number Theory (1): Integers")
+#import "/templates/pseudocode.typ": pseudocode
+#import "/templates/theorem.typ": *
+#import "/templates/color.typ" as color
 
-#import "@preview/ctheorems:1.1.3": *
+#show: book-page.with(title: "Real Analysis (1): Number Systems")
 #show: thmrules.with(qed-symbol: $square$)
 
-#let theorem = thmbox("theorem", "Theorem", fill: rgb("#eeffee"))
-#let definition = thmbox("definition", "Definition", fill: rgb("#e8e8f8"))
+#show: set text(fill: color.content)
+#show: set page(
+  fill: color.background,
+  numbering: "1"
+)
+#show link: it => {
+  set text(fill: color.content-reference-link)
+  it
+}
 
-#let proof = thmproof("proof", "Proof")
+#let content-highlight(content) = box(
+  content,
+  outset: 0.1em,
+  fill: rgb(color.content-highlight)
+)
 
 #align(center, text(17pt)[
   = Elementary Number Theory (1): Integers
