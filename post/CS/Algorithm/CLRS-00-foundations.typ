@@ -14,7 +14,17 @@
   = CLRS (0): Foundations
 ])
 
-= 1 Master Theorem
+= 1 Divide-and-Conquer Approach
+
+Many useful algorithms are *recursive* in structure, to solve a given problem,
+they call themselves one or more times to deal with closely related subproblems.
+These algorithms typically follow a *divide-and-conquer* approach: they break
+the problem into several subproblems that are similar to the original problem
+but smaller in size, finally combine these solutions to the original problem.
+
+== 1.1 Example: Merge Sort
+
+== 1.2 Master Theorem
 
 The master theorem provides a solution for recurrence relations of the form
 

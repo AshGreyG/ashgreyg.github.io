@@ -1,4 +1,5 @@
 #import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
+#import "@preview/shiroa:0.2.0": *
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
 #import "/templates/theorem.typ": *
@@ -33,7 +34,7 @@ minimize data movement.
 
 = 1 Comparison Sort
 
-= 1.1 Bubble Sort
+== 1.1 Bubble Sort
 
 Bubble sort is a simple sorting algorithm that repeatedly steps through the
 input list element by element, comparing the current element with the one after
@@ -117,7 +118,8 @@ Here is the benchmark of bubble sort and memorized bubble sort:
   figure(
     image("Bubble-Sort-Benchmark-Time.svg", width: 50%),
     caption: [Execution time benchmark of bubble sort \
-      and its memorized version]
+      and its memorized version (max and average have \
+      been pre-scaled down by 150)]
   ),
   figure(
     image("Bubble-Sort-Benchmark-Memory.svg", width: 50%),
@@ -129,7 +131,7 @@ Here is the benchmark of bubble sort and memorized bubble sort:
 The peaks of execution memory chart are not the real peak of execution, actually
 the space complexity of bubble sort is $O(1)$.
 
-= 1.2 Insertion Sort
+== 1.2 Insertion Sort
 
 Insertion Sort is a simple sorting algorithm that builds the final sorted array
 one item at a time by comparisons. Insertion sort iterates, consuming one input
@@ -157,4 +159,26 @@ no input elements remain.
   ]
 )
 
-In the worst case, 
+In the worst case, for every loop from index $i$ to $0$, insertion sort needs 
+$i$ swap hence the worst time complexity is $n(n + 1) \/ 2 ~ Θ(n^2)$. Here is
+the benchmark of insertion sort:
+
+#stack(
+  dir: ltr,
+  figure(
+    image("Insertion-Sort-Benchmark-Time.svg", width: 50%),
+    caption: [Execution time benchmark of insertion \
+      sort (max and average have been pre-scaled down \
+      by 50)]
+  ),
+  figure(
+    image("Insertion-Sort-Benchmark-Memory.svg", width: 50%),
+    caption: [Execution memory benchmark of insertion sort]
+  ),
+)
+
+== 1.3 Merge Sort
+
+The *merge sort* algorithm closely follows the
+#cross-link("/post/CS/Algorithm/CLRS-00-foundations.typ")[divide and conquer]
+paradigm
