@@ -4,7 +4,7 @@
 #import "/templates/theorem.typ": *
 #import "/templates/color.typ" as color
 
-#show: book-page.with(title: "Real Analysis (1): Number Systems")
+#show: book-page.with(title: "OS Concepts (1): Introduction")
 #show: thmrules.with(qed-symbol: $square$)
 
 #show: set text(fill: color.content)

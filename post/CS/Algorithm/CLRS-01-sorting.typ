@@ -9,7 +9,20 @@
 #show: thmrules.with(qed-symbol: $square$)
 
 #show: set text(fill: color.content)
-#show: set page(fill: color.background)
+#show: set page(
+  fill: color.background,
+  numbering: "1"
+)
+#show link: it => {
+  set text(fill: color.content-reference-link)
+  it
+}
+
+#let content-highlight(content) = box(
+  content,
+  outset: 0.1em,
+  fill: rgb(color.content-highlight)
+)
 
 #align(center, text(17pt)[
   = CLRS (1): Sorting
