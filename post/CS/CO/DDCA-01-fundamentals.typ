@@ -1,7 +1,6 @@
 #import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
 #import "@preview/circuiteria:0.2.0"
 #import "@preview/zap:0.4.0"
-#import "@preview/cetz:0.4.2"
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
 #import "/templates/theorem.typ": *
