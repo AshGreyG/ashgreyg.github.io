@@ -1,5 +1,5 @@
 #import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
-#import "@preview/shiroa:0.2.0": *
+#import "@preview/shiroa:0.2.3": *
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
 #import "/templates/theorem.typ": *
