@@ -10,6 +10,9 @@
 
     = Notes
       - #chapter(none)[Computer Science]
+        - #chapter(none)[Computer Organization]
+          - #chapter(none)[DDCA]
+            - #chapter("./post/CS/CO/DDCA-01-fundamentals.typ")[DDCA (1): Fundamentals]
         - #chapter(none)[Algorithm]
           - #chapter(none)[CLRS]
             - #chapter("./post/CS/Algorithm/CLRS-00-foundations.typ")[CLRS (0): Foundations]
