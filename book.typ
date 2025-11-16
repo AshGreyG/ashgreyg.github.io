@@ -5,9 +5,6 @@
 #book-meta(
   title: "Saved notes of AshGrey 🐿️",
   summary: [
-    = About
-      - #chapter("./me/aboutme.typ")[About Me]
-
     = Notes
       - #chapter(none)[Computer Science]
         - #chapter(none)[Computer Organization]

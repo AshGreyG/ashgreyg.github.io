@@ -82,7 +82,7 @@ In the best case, the input array is ordered, algorithm only needs to scan the
 whole array and doesn't need swapping. So the *best-case time complexity* is
 $Ω(n)$.
 
-#theorem(number: "1.1 Average-Case Complexity")[
+#theorem(number: "1.1 Average-Case Complexity of Bubble Sort")[
   The average-case complexity of bubble sort is $Θ(n^2)$
 ]
 
@@ -173,7 +173,7 @@ no input elements remain.
 )
 
 In the worst case, for every loop from index $i$ to $0$, insertion sort needs 
-$i$ swap hence the worst time complexity is $n(n + 1) \/ 2 ~ Θ(n^2)$. Here is
+$i$ swap hence the worst time complexity is $n(n + 1) \/ 2 ~ O(n^2)$. Here is
 the benchmark of insertion sort:
 
 #stack(
@@ -189,6 +189,13 @@ the benchmark of insertion sort:
     caption: [Execution memory benchmark of insertion sort]
   ),
 )
+
+The average-case complexity of insertion sort is $Θ(n^2)$. According to the
+analysis of bubble sort, any 
+
+#proof[
+
+]
 
 == 1.3 Merge Sort
 

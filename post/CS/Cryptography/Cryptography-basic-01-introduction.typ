@@ -153,7 +153,7 @@ for security but not a sufficient one.
 Assuming English alphabet is being encrypted (the text is grammatically correct
 English writing), the key space is of size $26! ≈ 2^88$ but this doesn't mean
 the cipher is secure: the mono-alphabetic substitution cipher can be attacked
-by utilizing statical patterns of the English language.
+by utilizing statistical patterns of the English language.
 
 + For any key, the mapping of each letter is fixed and so if $m_i$ is mapped
   to $k(m_i)$, then every appearance of $m_i$ in the plaintext will result in
@@ -187,7 +187,36 @@ This leads to a key recovery attack that is easy to automate: compute $I_j$ for
 all $j$ and then output the value $k$ for which $I_k$ is closest to $0.065$.
 
 #definition(number: "2.4 Vigenere Cipher")[
-  *Poly-alphabetic substitution cipher* (or *Vigenere Cipher*) is an algorithm
-  that the key instead defines a mapping that is applied on blocks of plaintext
-  chracters.
+  *Poly-alphabetic substitution cipher* is an algorithm that the key instead 
+  defines a mapping that is applied on blocks of plaintext characters. Here
+  a key may map the 2-character block $mono("ab")$ to $mono("DZ")$ or map
+  $mono("ac")$ to $mono("TY")$. Poly-alphabetic substitution ciphers *smooth
+  out* the frequency distribution of characters and makes it harder to perform
+  statistical analysis.
+
+  + Algorithm $sans("Gen")$ gives a set of maps from characters block to another
+    block: $σ : m_1 ⋯ m_s ↦ c_1 ⋯ c_t$, where $m_i, c_i ∈ {0,⋯,25}$. And the
+    set (substitution rules, or the rules of key $k$) should be
+
+    $ k = {σ | σ : m_1 ⋯ m_s ↦ c_1 ⋯ c_t, space m_i, c_i ∈ {0,⋯,25}} $
+
+  + Algorithm $sans("Enc")$ use the substitution rules to encrypt messages:
+
+    #pseudocode(
+      [Algorithm 1 Poly-alphabetic Substitution Cipher],
+      [
+        + *procedure* #smallcaps("Poly-alphabetic Substitution Cipher") (M)
+          + $n$ ← $sans("length")(upright("M"))$
+          + $i$ ← $0$
+          + *while* $i < n$ *do*
+            + *for* $j$ *in* $S := {l | l = sans("length")(m), m ∈ sans("ran")(k)}$
+              *do*
+              + ▷ Here set (or list) $S$ consists of different length $s$ of
+                $m_1 ⋯  m_s$ in substitution rules.
+              + *if* $upright("M")[i : i + j - 1] ∈ M := sans("ran")(k)$ *do*
+      ]
+    )
+
+  The Vigenere cipher is a special case of the poly-alphabetic substitution
+  cipher, and it is also called *poly-alphabetic shift cipher*.
 ]
