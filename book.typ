@@ -15,6 +15,8 @@
             - #chapter("./post/CS/Algorithm/CLRS-00-foundations.typ")[CLRS (0): Foundations]
             - #chapter("./post/CS/Algorithm/CLRS-01-sorting.typ")[CLRS (1): Sorting]
             - #chapter("./post/CS/Algorithm/CLRS-02-data-structure.typ")[CLRS (2): Data Structure]
+          - #chapter(none)[Exercise Notes]
+            - #chapter("./post/CS/Algorithm/Exc-01-maximum-product-product.typ")[Exc (1): Maximum Product Over Partitions Into Distinct Parts]
         - #chapter(none)[Cryptography]
           - #chapter(none)[Basic]
             - #chapter("./post/CS/Cryptography/Cryptography-basic-01-introduction.typ")[Modern Cryptography (1): Introduction]
