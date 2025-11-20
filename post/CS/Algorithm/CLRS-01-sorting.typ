@@ -57,7 +57,7 @@ These passes through the list are repeated until no swaps have to be performed
 during a pass, meaning that the list has become full sorted.
 
 #pseudocode(
-  [Algorithm 1: Bubble Sort],
+  [Algorithm 1.1: Bubble Sort],
   [
     + *procedure* #smallcaps("Bubble-Sort") (A)
       + ▷ A is an array, in the following code, $upright("A")[i]$ represents the
@@ -66,7 +66,7 @@ during a pass, meaning that the list has become full sorted.
       + swapped ← $sans("true")$
       + *while* swapped $sans("is true")$ *do*
         + swapped ← $sans("false")$
-        + *for* i *in* $sans("range")(1..n-1, "step": 1)$ *do*
+        + *for* $i$ *in* $sans("range")(1..n-1, "step": 1)$ *do*
           + *if* $upright("A")[i] > upright("A")[i-1]$ *then*
             + $sans("swap")(upright("A")[i-1], upright("A")[i])$
             + swapped ← $sans("true")$
@@ -103,7 +103,7 @@ $Ω(n)$.
 We can use memorization to shorten the execution time:
 
 #pseudocode(
-  [Algorithm 2: Memorized Bubble Sort],
+  [Algorithm 1.2: Memorized Bubble Sort],
   [
     + *procedure* #smallcaps("Memorized-Bubble-Sort") (A)
       + ▷ A is an array, in the following code, $upright("A")[i]$ represents the
@@ -113,7 +113,7 @@ We can use memorization to shorten the execution time:
       + swapped ← $sans("true")$
       + *while* swapped $sans("is true")$ *do*
         + swapped ← $sans("false")$
-        + *for* i *in* $sans("range")(1..j-1, "step": 1)$ *do*
+        + *for* $i$ *in* $sans("range")(1..j-1, "step": 1)$ *do*
           + *if* $upright("A")[i] > upright("A")[i-1]$ *then*
             + $sans("swap")(upright("A")[i-1], upright("A")[i])$
             + swapped ← $sans("true")$
@@ -156,7 +156,7 @@ the correct location within the sorted list, and inserts it here. It repeats unt
 no input elements remain.
 
 #pseudocode(
-  [Algorithm 3: Insertion Sort],
+  [Algorithm 1.3: Insertion Sort],
   [
     + *procedure* #smallcaps("Insertion-Sort") (A)
     + ▷ A is an array, in the following code, $upright("A")[i]$ represents the
@@ -191,14 +191,95 @@ the benchmark of insertion sort:
 )
 
 The average-case complexity of insertion sort is $Θ(n^2)$. According to the
-analysis of bubble sort, any 
-
-#proof[
-
-]
+analysis of bubble sort, any sort based on swapping the reverse pair one by one
+has average-case complexity $Θ(n^2)$.
 
 == 1.3 Merge Sort
 
 The *merge sort* algorithm closely follows the
 #cross-link("/post/CS/Algorithm/CLRS-00-foundations.typ")[divide and conquer]
 paradigm
+
+= 2 Non-Comparison Sort
+
+== 2.1 Bucket Sort
+
+Bucket sort assumes that the input is drawn from a uniform distribution and has
+and average-case running time of $Θ(n)$. Bucket sort divides the interval
+$[0, 1)$ into $n$ equal-sized subintervals or called *buckets*, and then
+distributes the $n$ input numbers into the buckets.
+
+#pseudocode(
+  [Algorithm 2.1: Bucket Sort],
+  [
+    + *procedure* #smallcaps("Bucket-Sort") (A)
+    + $n$ ← $sans("length")(upright("A"))$
+    + let $upright("B")[0..n - 1]$ be a new array
+    + *for* $i$ in $sans("range")(0..n - 1)$ *do*
+      + ▷ Notice when parameter `step` is skipped, then it's default value `1`
+      + make $upright("B")[i]$ an empty linked list
+    + *for* $i$ in $sans("range")(0..n - 1)$ *do*
+      + insert $upright("A")[i]$ into list $upright("B")[floor(n upright("A")[i])]$
+    + *for* $i$ in $sans("range")(0..n - 1)$ *do*
+      + sort list $upright("B")[i]$ with insertion sort
+    + concatenate the lists $upright("B")[0],upright("B")[1],⋯,upright("B")[n - 1]$
+      together in order.
+  ]
+)
+
+Assume that $upright("A")[i] ≤ upright("A")[j]$, so $floor(n A[i]) ≤ floor(n A[j])$
+either element $A[i]$ goes into the same buckets as $A[j]$ or it goes into a
+bucket with a lower index. And if they goes into same bucket the ordering step
+will put them in proper order.
+
+Let $n_i$ be the random variable denoting the number of elements placed in
+bucket $upright("B")[i]$. Since insertion sort runs in $O(n^2)$ time the running
+time of bucket sort is
+
+$ T(n) = Θ(n) + ∑_(i = 0)^(n - 1) O(n_i^2) $
+
+We take the expectation over the input distribution of both sides and using
+linearity of expectation we have
+
+$ 𝔼[T(n)] & = 𝔼[Θ(n) + ∑_(i = 0)^(n - 1) O(n_i^2) ] \
+  & = Θ(n) + ∑_(i = 0)^(n - 1) 𝔼[O(n_i^2)] space.en ("by linearity of expectation") \
+  & = Θ(n) + ∑_(i = 0)^(n - 1) O(𝔼[n_i^2]) space.en ("by" 𝔼(a X) = a 𝔼(X))
+$
+
+Each bucket $i$ has the same value of $𝔼[n_i^2]$ for $i = 0,1,⋯,n - 1$, since
+each value in the input array $A$ is equally likely to fall in any bucket. We
+define indicator random variables $X_(i j) = 1$ when $upright("A")[j]$ falls
+in bucket $i$ for $i = 0,1,⋯,n - 1$ and $j = 0,1,⋯,n - 1$. Thus
+$n_i = ∑_(j = 0)^(n - 1) X_(i j)$. To compute $𝔼[n_i^2]$ we expand the square
+and regroup items:
+
+$ 𝔼[n_i^2] & = 𝔼[(∑_(j = 0)^(n - 1) X_(i j))] ^ 2 \
+  & = 𝔼[∑_(j = 0)^(n - 1) ∑_(k = 0)^(n - 1) X_(i j) X_(i k)] \
+  & = 𝔼[∑_(j = 0)^(n - 1) X_(i j)^2 + ∑_(0 ≤ j ≤ n - 1) ∑_(0 ≤ k ≤ n - 1 \ k ≠ j)
+    X_(i j) X_(i k)] \
+  & = ∑_(j = 0)^(n - 1) 𝔼[X_(i j)^2] + ∑_(0 ≤ j ≤ n - 1) ∑_(0 ≤ k ≤ n - 1 \ k ≠ j)
+    𝔼[X_(i j) X_(i k)]
+$
+
+Where the last line follows by linearity of expectation. And we can evaluate
+the two summations separately. Indicator random variable $X_(i j)$ is $1$ with
+probability $1 / n$ and $0$ otherwise, therefore
+
+$ 𝔼[X_(i j)^2] = 1^2 ⋅ 1 / n + 0^2 ⋅ (1 - 1 / n) = 1 / n $
+
+When $k ≠ j$, the variables $X_(i j)$ and $X_(i k)$ are independent and hence
+
+$ 𝔼[X_(i j) X_(i k)] = 𝔼[X_(i j)]𝔼[X_(i k)] = 1 / n ⋅ 1 / n = 1 / n^2 $
+
+so we have
+
+$ 𝔼[n_i^2] & = ∑_(j = 0)^(n - 1) 1 / n + ∑_(0 ≤ j ≤ n - 1) 
+    ∑_(0 ≤ k ≤ n - 1 \ k ≠ j) 1 / n^2 \
+  & = n ⋅ 1 / n + n(n - 1) 1 / n^2 \
+  & = 2 - 1 / n
+$
+
+So substitute the $𝔼[n_i^2]$ in expression of $𝔼[T(n)]$ we have:
+
+$ 𝔼[T(n)] = Θ(n) + ∑_(i = 0)^(n - 1) O(𝔼[n_i^2]) = Θ(n) + n(2 - 1 / n) 
+  = Θ(n) + 2n - 1 $
