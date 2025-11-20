@@ -141,8 +141,8 @@ Here is the benchmark of bubble sort and memorized bubble sort:
   ),
 )
 
-The peaks of execution memory chart are not the real peak of execution, actually
-the space complexity of bubble sort is $O(1)$.
+Actually the space complexity of bubble sort is $O(1)$. The sharp spike in this
+chart is due to malloc function of Python.
 
 == 1.2 Insertion Sort
 
@@ -205,7 +205,7 @@ paradigm
 == 2.1 Bucket Sort
 
 Bucket sort assumes that the input is drawn from a uniform distribution and has
-and average-case running time of $Θ(n)$. Bucket sort divides the interval
+an average-case running time of $Θ(n)$. Bucket sort divides the interval
 $[0, 1)$ into $n$ equal-sized subintervals or called *buckets*, and then
 distributes the $n$ input numbers into the buckets.
 
@@ -283,3 +283,21 @@ So substitute the $𝔼[n_i^2]$ in expression of $𝔼[T(n)]$ we have:
 
 $ 𝔼[T(n)] = Θ(n) + ∑_(i = 0)^(n - 1) O(𝔼[n_i^2]) = Θ(n) + n(2 - 1 / n) 
   = Θ(n) + 2n - 1 $
+
+We can implement a benchmark for bucket sort:
+
+#stack(
+  dir: ltr,
+  figure(
+    image("Bucket-Sort-Benchmark-Time.svg", width: 50%),
+    caption: [Execution time benchmark of bucket \
+      sort (max and average have been pre-scaled down \
+      by 10)]
+  ),
+  figure(
+    image("Bucket-Sort-Benchmark-Memory.svg", width: 50%),
+    caption: [Execution memory benchmark of bucket sort]
+  ),
+)
+
+
