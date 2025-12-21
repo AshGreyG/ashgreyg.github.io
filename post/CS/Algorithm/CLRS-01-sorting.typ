@@ -198,7 +198,39 @@ has average-case complexity $Θ(n^2)$.
 
 The *merge sort* algorithm closely follows the
 #cross-link("/post/CS/Algorithm/CLRS-00-foundations.typ")[divide and conquer]
-paradigm
+paradigm which involves tree steps at each level of recursion:
+
++ *Divide*: Divide the $n$-element sequence to be sorted into two subsequences
+  of $n / 2$ elements each;
++ *Conquer*: Sort the two subsequences recursively using merge sort;
++ *Combine*: Merger the two sorted subsequences to produce the sorted answer.
+
+The recursion bottoms out when the sequence to be sorted has length $1$, in which
+case there is no work to be done. Since every sequence of length $1$ is already
+in sorted order.
+
+#pseudocode(
+  [Algorithm 1.4 Merge Sort],
+  [
+    + *procedure* #smallcaps("Merge-Sort") (A, $p$, $r$)
+    + *function* Merge($upright("A"), p, q, r$)
+      + $n_1$ ← $q - p + 1$
+      + $n_2$ ← $r - q$
+      + let $upright("L")[0..n_1]$ and $upright("R")[0..n_2]$ be new arrays
+      + *for* $i$ *in* $sans("range")(0..n_1 - 1)$ *do*
+        + $upright("L")[i]$ ← $upright("A")[p + i - 1]$
+      + *for* $j$ *in* $sans("range")(0..n_2 - 1)$ *do*
+        + $upright("R")[j]$ ← $upright("A")[q + j]$
+      + $upright("L")[n_1]$ ← $∞$
+      + $upright("R")[n_2]$ ← $∞$
+      + $i$ ← $0$
+      + $j$ ← $0$
+      + *for* $k$ *in* $sans("range")(p..r)$ *do*
+        + *if* $upright("L")[i] ≤ upright("R")[j]$ *then*
+          + 
+  ]
+)
+
 
 = 2 Non-Comparison Sort
 

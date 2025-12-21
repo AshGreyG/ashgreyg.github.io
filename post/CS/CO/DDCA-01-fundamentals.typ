@@ -275,15 +275,15 @@ is the amount of noise that could be added to a worst-case output such that the
 signal can still be interpreted as a valid input. It's an anti-interference
 capability of circuit.
 
-An ideal inverter would have an abrupt switching threshold at $display(V_("DD")
-/ 2)$. For $display(V(A) < V_("DD") / 2)$, $V(Y) = V_("DD")$. For $display(V(A)
-> V_("DD") / 2)$, $V(Y) = 0$. In such case $V_("IH") = V_("IL") = display(
-V_("DD") / 2)$, $V_("OH") = V_("DD")$ and $V_("OL") = 0$.
+An ideal inverter would have an abrupt switching threshold at $V_("DD")
+/ 2$. For $V(A) < V_("DD") / 2$, $V(Y) = V_("DD")$. For $V(A)
+> V_("DD") / 2$, $V(Y) = 0$. In such case $V_("IH") = V_("IL") = 
+V_("DD") / 2$, $V_("OH") = V_("DD")$ and $V_("OL") = 0$.
 
 But a real inverter changes more gradually between the extremes. The transition
-between endpoints is smooth and may not be centered at exactly $display(V_("DD")
-/ 2)$. A reasonable place to choose the logic levels is where the slope of the
-transfer characteristic $display(("d"V(Y)) / ("d"V(A)) = -1)$. The two points
+between endpoints is smooth and may not be centered at exactly $V_("DD")
+/ 2$. A reasonable place to choose the logic levels is where the slope of the
+transfer characteristic $("d"V(Y)) / ("d"V(A)) = -1$. The two points
 are called the *unity gain points*. Choosing logic levels at the unity gain
 points usually maximizes the noise margins.
 
@@ -393,6 +393,7 @@ The pMOS transistors are just the opposite.
 #align(center)[
   #stack(
     dir: ltr,
+    spacing: 4pt,
     figure(
       zap.circuit({
         import zap: *
@@ -421,6 +422,27 @@ The pMOS transistors are just the opposite.
       }),
       caption: [Symbols of pMOS]
     ),
-
   )
 ]
+
+The substrate of an nMOS transistor is normally tied to GND, the lowest voltage
+in the system. When the gate is also at GND, the diodes between the source or
+drain and the substrate are reverse biased. Hence there is no path for current
+to flow between the source and drain, so the transistor is OFF. Consider the 
+gate is raised to $V_("DD")$, when a positive voltage is applied to the top plate
+of a capacitor, it establishes an electric field that attracts positive charge
+on the top plate and negative charge to the bottom plate.
+
+*If the voltage is sufficiently large, so much negative charge is attracted to
+the substrate and converts it to $n$-type*. This inverted region is called
+*channel*. Now the transistor has a continuous path from the $n$-type source
+through the $n$-type channel to the $n$-type drain, now electrons can flow from
+source to drain and the transistor is ON.
+
+pMOS is just the opposite.
+
+Unfortunately MOSFETs are not perfect switches. In particular nMOS transistors
+pass 0's well but pass 1's poorly. When the gate of an nMOS transistor is at
+$V_("DD")$ the source will only swing between $0$ and $V_("DD") - V_t$ and
+drain its drain ranges from $0$ to $V_("DD")$. Similarly pMOS transistors
+pass 1's well but 0's poorly.

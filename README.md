@@ -1,2 +1,2 @@
-# Blog
-This is my final blog (mainly in english) using typst
+> [!note]
+> Taking more time recording than thinking is pseudo-learning
