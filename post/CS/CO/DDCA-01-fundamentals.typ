@@ -55,7 +55,8 @@ on the architecture of the microprocessors. In modern computers, most
 microprocessors use 64-bit words and older computers may still use 32-bit words.
 Simpler microprocessors used in gadgets use 8- or 16-bit words.
 
-Within a group of bits, the bit in the 1's column is called *least significant bits* (lsb), and the bit at the end is called the *most significant bit* (msb).
+Within a group of bits, the bit in the 1's column is called *least significant bits* (lsb),
+and the bit at the end is called the *most significant bit* (msb).
 Similarly within a word the bytes are identified as *least significant byte*
 (LSB) and *most significant byte* (MSB).
 
@@ -148,8 +149,9 @@ can be described with a *truth table* or a *Boolean equations*.
   The XOR operation is indicated by $⊕$. The Boolean equation for a XOR gate
   is written as $T = A ⊕ B$. Other gates just reverse the output.
 
+// Figure: Gates of not, buffer, and, or, xor, nand, nor, xnor
 #align(center)[
-  #let first-line-gates = ("not", "buf", "and", "or");
+  #let first-line-gates = ("not", "buf", "and", "or")
   #let second-line-gates = ("xor", "nand", "nor", "xnor")
   #stack(
     dir: ltr,
@@ -163,6 +165,7 @@ can be described with a *truth table* or a *Boolean equations*.
         figure(
           circuiteria.circuit({
             import circuiteria: *
+            // type of variable 'gate-function-map' is 'dictionary'
             let gate-function-map = (
               "not": gates.gate-not,
               "buf": gates.gate-buf,
@@ -208,7 +211,8 @@ can be described with a *truth table* or a *Boolean equations*.
 Many Boolean functions of three or more inputs exist. An $N$-input AND gate
 produces a $sans("true")$ output when all $N$ inputs are $sans("true")$. An
 $N$-input OR gate produces a $sans("true")$ output when at least one input
-is $sans("true")$.
+is $sans("true")$. An $N$-input XOR gate produces $sans("true")$ when odd of 
+inputs are $sans("true")$.
 
 == 2.2 Beneath Digital Abstraction
 
@@ -233,6 +237,7 @@ the gate is unpredictable.
 $V_("OH")$, $V_("OL")$, $V_("IH")$ and $V_("IL")$ are called the output and
 input high and low logic levels.
 
+// Figure: Logic levels and noise margins
 #align(center)[
   #figure(
     circuiteria.circuit({
