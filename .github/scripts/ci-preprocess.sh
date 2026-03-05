@@ -11,13 +11,13 @@ TEMP_DIR=$(mktemp -d)
 BACKUP_DIR="$TEMP_DIR/post_backup"
 
 echo "Backing up post directory to $BACKUP_DIR"
-cp -r /home/ashgrey/Github/Blog/post "$BACKUP_DIR"
+cp -r ./post "$BACKUP_DIR"
 
 # Function to restore original files on exit
 cleanup() {
   echo "Restoring original files..."
-  rm -rf /home/ashgrey/Github/Blog/post
-  cp -r "$BACKUP_DIR" /home/ashgrey/Github/Blog/post
+  rm -rf ./post
+  cp -r "$BACKUP_DIR" ./post
   rm -rf "$TEMP_DIR"
   echo "Cleanup complete"
 }
@@ -29,7 +29,7 @@ trap cleanup EXIT
 echo "Removing local font configurations..."
 
 # Find all .typ files in post directory and apply transformations
-find /home/ashgrey/Github/Blog/post -name "*.typ" -type f -exec sed -i \
+find ./post -name "*.typ" -type f -exec sed -i \
   -e 's/#show: set text(fill: color\.content, font: "C059", size: 12pt)/#show: set text(fill: color.content)/' \
   -e '/#show math\.equation\.where(block: true): set text(size: 14pt)/d' \
   {} \;
