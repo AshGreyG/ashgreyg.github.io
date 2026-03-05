@@ -1,5 +1,5 @@
-#let background = rgb("#e0dcd3")
-#let content = rgb("#6e8771")
+#let background = rgb("#ffffff")
+#let content = rgb("#000000")
 #let content-highlight = rgb("#dbbc7f93")
 #let content-reference-link = rgb("#6693ba")
 #let theorem-background = rgb("#b0c9cea4")

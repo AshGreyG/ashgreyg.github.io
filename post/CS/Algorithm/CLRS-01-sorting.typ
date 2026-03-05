@@ -1,4 +1,4 @@
-#import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "@preview/shiroa:0.2.3": *
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
@@ -8,7 +8,7 @@
 #show: book-page.with(title: "CLRS (1): Sorting")
 #show: thmrules.with(qed-symbol: $square$)
 
-#show: set text(fill: color.content)
+#show: set text(fill: color.content, font: "C059", size: 12pt)
 #show: set page(
   fill: color.background,
   numbering: "1"
@@ -17,6 +17,7 @@
   set text(fill: color.content-reference-link)
   it
 }
+#show math.equation.where(block: true): set text(size: 14pt)
 
 #let content-highlight(content) = box(
   content,
@@ -74,8 +75,8 @@ during a pass, meaning that the list has become full sorted.
   ]
 )
 
-In the worst case, the input array is totally ordered in reverse, outer loop 
-executes $n$ times and inner loop executes also $n$ times, so the *worst-case 
+In the worst case, the input array is totally ordered in reverse, outer loop
+executes $n$ times and inner loop executes also $n$ times, so the *worst-case
 time complexity* is $O(n^2)$.
 
 In the best case, the input array is ordered, algorithm only needs to scan the
@@ -89,7 +90,7 @@ $Ω(n)$.
 #proof[
   If $0 ≤ i < j < n$ and $upright("A")[i] > upright("A")[j]$, we call pair $(i,j)$ an
   inversion. For any two indexes $(i,j)$ here $i<j$, there is a $display(1/2)$
-  probability that $upright("A")[i]>upright("A")[j]$. Because there are 
+  probability that $upright("A")[i]>upright("A")[j]$. Because there are
   $display(mat(n;2)=n(n-1)/2)$ inversions, so the expectation of number of inversion is
 
   $ EE(i)=1/2 × n(n-1)/2 = n(n-1)/4 $
@@ -172,7 +173,7 @@ no input elements remain.
   ]
 )
 
-In the worst case, for every loop from index $i$ to $0$, insertion sort needs 
+In the worst case, for every loop from index $i$ to $0$, insertion sort needs
 $i$ swap hence the worst time complexity is $n(n + 1) \/ 2 ~ O(n^2)$. Here is
 the benchmark of insertion sort:
 
@@ -227,7 +228,8 @@ in sorted order.
       + $j$ ← $0$
       + *for* $k$ *in* $sans("range")(p..r)$ *do*
         + *if* $upright("L")[i] ≤ upright("R")[j]$ *then*
-          + 
+
+
   ]
 )
 
@@ -290,8 +292,7 @@ $ 𝔼[n_i^2] & = 𝔼[(∑_(j = 0)^(n - 1) X_(i j))] ^ 2 \
   & = 𝔼[∑_(j = 0)^(n - 1) X_(i j)^2 + ∑_(0 ≤ j ≤ n - 1) ∑_(0 ≤ k ≤ n - 1 \ k ≠ j)
     X_(i j) X_(i k)] \
   & = ∑_(j = 0)^(n - 1) 𝔼[X_(i j)^2] + ∑_(0 ≤ j ≤ n - 1) ∑_(0 ≤ k ≤ n - 1 \ k ≠ j)
-    𝔼[X_(i j) X_(i k)]
-$
+    𝔼[X_(i j) X_(i k)] $
 
 Where the last line follows by linearity of expectation. And we can evaluate
 the two summations separately. Indicator random variable $X_(i j)$ is $1$ with
@@ -305,15 +306,14 @@ $ 𝔼[X_(i j) X_(i k)] = 𝔼[X_(i j)]𝔼[X_(i k)] = 1 / n ⋅ 1 / n = 1 / n^2
 
 so we have
 
-$ 𝔼[n_i^2] & = ∑_(j = 0)^(n - 1) 1 / n + ∑_(0 ≤ j ≤ n - 1) 
+$ 𝔼[n_i^2] & = ∑_(j = 0)^(n - 1) 1 / n + ∑_(0 ≤ j ≤ n - 1)
     ∑_(0 ≤ k ≤ n - 1 \ k ≠ j) 1 / n^2 \
   & = n ⋅ 1 / n + n(n - 1) 1 / n^2 \
-  & = 2 - 1 / n
-$
+  & = 2 - 1 / n $
 
 So substitute the $𝔼[n_i^2]$ in expression of $𝔼[T(n)]$ we have:
 
-$ 𝔼[T(n)] = Θ(n) + ∑_(i = 0)^(n - 1) O(𝔼[n_i^2]) = Θ(n) + n(2 - 1 / n) 
+$ 𝔼[T(n)] = Θ(n) + ∑_(i = 0)^(n - 1) O(𝔼[n_i^2]) = Θ(n) + n(2 - 1 / n)
   = Θ(n) + 2n - 1 $
 
 We can implement a benchmark for bucket sort:
@@ -331,5 +331,3 @@ We can implement a benchmark for bucket sort:
     caption: [Execution memory benchmark of bucket sort]
   ),
 )
-
-

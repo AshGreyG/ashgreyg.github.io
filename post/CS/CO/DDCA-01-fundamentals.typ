@@ -1,4 +1,4 @@
-#import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "@preview/circuiteria:0.2.0"
 #import "@preview/zap:0.4.0"
 #import "/book.typ": book-page
@@ -9,7 +9,7 @@
 #show: book-page.with(title: "DDCA (1): Fundamentals")
 #show: thmrules.with(qed-symbol: $square$)
 
-#show: set text(fill: color.content)
+#show: set text(fill: color.content, font: "C059", size: 12pt)
 #show: set page(
   fill: color.background,
   numbering: "1"
@@ -18,6 +18,7 @@
   set text(fill: color.content-reference-link)
   it
 }
+#show math.equation.where(block: true): set text(size: 14pt)
 
 #let content-highlight(content) = box(
   content,
@@ -36,7 +37,7 @@
 An $N$-digit decimal number represents one of $10^N$ possibilities: $0,1,...
 10^N-1$. This is called the *range* of the number. And bits represents one of
 two values, $0$ or $1$, and are joined together to form *binary number*. Each
-column of a binary number has twice the weight of the previous column, so 
+column of a binary number has twice the weight of the previous column, so
 binary numbers are base $2$. In binary, the column weights (from right to left)
 are $1,2,4,8,...$. So $N$-bit binary number represents one of $2^N$
 possibilities: $0,1,...,2^N-1$.
@@ -51,7 +52,7 @@ is called a *nibble*. One hexadecimal digit stores one nibble and two hexadecima
 digits store one full byte.
 
 Microprocessors handle data in chunks called *words*. The size of a word depends
-on the architecture of the microprocessors. In modern computers, most 
+on the architecture of the microprocessors. In modern computers, most
 microprocessors use 64-bit words and older computers may still use 32-bit words.
 Simpler microprocessors used in gadgets use 8- or 16-bit words.
 
@@ -89,7 +90,7 @@ is said to *overflow* if the result is too big to fit in the available digits.
   $2^(N - 1)$. They overcome the shortcoming of sign/magnitude numbers: zero
   has a single representation. In two's complement representation ordinary
   $0$ is written as all zeros: $00...000_2$. Two's complement numbers of normal
-  positive number is itself, for example $3_10 = 0011_2$ (in 4-bit). For normal 
+  positive number is itself, for example $3_10 = 0011_2$ (in 4-bit). For normal
   negative number $n (n < 0)$:
 
   $ bold(0)1101...1010_2 stretch(→)^"complement" bold(1)0010...0101_2
@@ -211,7 +212,7 @@ can be described with a *truth table* or a *Boolean equations*.
 Many Boolean functions of three or more inputs exist. An $N$-input AND gate
 produces a $sans("true")$ output when all $N$ inputs are $sans("true")$. An
 $N$-input OR gate produces a $sans("true")$ output when at least one input
-is $sans("true")$. An $N$-input XOR gate produces $sans("true")$ when odd of 
+is $sans("true")$. An $N$-input XOR gate produces $sans("true")$ when odd of
 inputs are $sans("true")$.
 
 == 2.2 Beneath Digital Abstraction
@@ -253,7 +254,7 @@ input high and low logic levels.
         stroke: color.content + 0.6pt,
       )
       wire.wire(
-        "w1", 
+        "w1",
         ("Driver.west", (-1, 0.5)),
         color: color.content,
       )
@@ -282,7 +283,7 @@ capability of circuit.
 
 An ideal inverter would have an abrupt switching threshold at $V_("DD")
 / 2$. For $V(A) < V_("DD") / 2$, $V(Y) = V_("DD")$. For $V(A)
-> V_("DD") / 2$, $V(Y) = 0$. In such case $V_("IH") = V_("IL") = 
+> V_("DD") / 2$, $V(Y) = 0$. In such case $V_("IH") = V_("IL") =
 V_("DD") / 2$, $V_("OH") = V_("DD")$ and $V_("OL") = 0$.
 
 But a real inverter changes more gradually between the extremes. The transition
@@ -327,7 +328,7 @@ The concentration of dopants, silicon is called a *semiconductor*.
 
 The junction between $p$-type and $n$-type silicon is called a *diode*. The
 $p$-type region is called the *anode* and the $n$-type region is called the
-*cathode*. 
+*cathode*.
 
 When the voltage on the anode rises above the voltage on the cathode, the diode
 is *forward biased* and current flows through the diode to the cathode. But
@@ -353,7 +354,7 @@ when the anode voltage is lower than the voltage on the cathode, the diode is
 
 == 3.3 Capacitors
 
-A *capacitor* consists of two conductors separated by an insulator. When a 
+A *capacitor* consists of two conductors separated by an insulator. When a
 voltage $V$ is applied to one of the conductors the conductor accumulates
 electric *charge* $Q$ and the other conductor accumulates the opposite charge
 $-Q$.
@@ -433,7 +434,7 @@ The pMOS transistors are just the opposite.
 The substrate of an nMOS transistor is normally tied to GND, the lowest voltage
 in the system. When the gate is also at GND, the diodes between the source or
 drain and the substrate are reverse biased. Hence there is no path for current
-to flow between the source and drain, so the transistor is OFF. Consider the 
+to flow between the source and drain, so the transistor is OFF. Consider the
 gate is raised to $V_("DD")$, when a positive voltage is applied to the top plate
 of a capacitor, it establishes an electric field that attracts positive charge
 on the top plate and negative charge to the bottom plate.

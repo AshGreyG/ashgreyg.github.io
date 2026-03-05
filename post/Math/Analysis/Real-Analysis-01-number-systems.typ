@@ -1,4 +1,4 @@
-#import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
 #import "/templates/theorem.typ": *
@@ -7,7 +7,7 @@
 #show: book-page.with(title: "Real Analysis (1): Number Systems")
 #show: thmrules.with(qed-symbol: $square$)
 
-#show: set text(fill: color.content)
+#show: set text(fill: color.content, font: "C059", size: 12pt)
 #show: set page(
   fill: color.background,
   numbering: "1"
@@ -16,6 +16,7 @@
   set text(fill: color.content-reference-link)
   it
 }
+#show math.equation.where(block: true): set text(size: 14pt)
 
 #let content-highlight(content) = box(
   content,
@@ -25,11 +26,11 @@
 
 // This function is to solve the `highlight` function doesn't work for inline
 // math mode, @see:
-// 
+//
 // https://github.com/typst/typst/issues/2200
-// 
+//
 // and its solution:
-// 
+//
 // https://github.com/typst/typst/issues/2200#issuecomment-2669589133
 
 #align(center, text(17pt)[
@@ -71,7 +72,7 @@ Then we have
 
 $ q^2 - 2 = (2(p^2 - 2))/(p+2)^2 $
 
-- If $p$ is in $A$, then $p^2 - 2 < 0$, so $display(q - p = (2-p^2)/(p+2) > 0)$, 
+- If $p$ is in $A$, then $p^2 - 2 < 0$, so $display(q - p = (2-p^2)/(p+2) > 0)$,
   which implies $q > p$ and $q^2 < 2$, thus $q$ is in $A$, so $A$ contains no
   largest number.
 
@@ -165,7 +166,7 @@ greatest-lower-bound property.
   Suppose $S$ is an ordered set with the least-upper-bound property, $B ⊂ S$, $B$ is
   not empty, and $B$ is bounded below. Let $L$ be the set of all lower bounds of $B$.
   Then
-  
+
   $ α = "sup" L $
 
   exists in $S$ and $α = "inf" B$. In particular, $"inf" B$ exists in $S$.
@@ -191,8 +192,8 @@ greatest-lower-bound property.
 
 #definition(number: "3.1")[
   A field is a set $𝔽$ with two operations, called *addition* and *multiplication*,
-  which satisfy the following so-called *field axioms* (A), (M) and (D): 
-  
+  which satisfy the following so-called *field axioms* (A), (M) and (D):
+
   - *(A) Axioms for addition* <axiom-addition>
     - (A1) $x ∈ 𝔽$ and $y ∈ 𝔽$, then their sum $x + y ∈ 𝔽$.
       <axiom-addition-a1>
@@ -205,6 +206,7 @@ greatest-lower-bound property.
     - (A5) To every $x ∈ 𝔽$ corresponds an element $-x ∈ 𝔽$ such that
 
       $ x + (-x) = 0 $
+
       <axiom-addition-a5>
 
   - *(M) Axioms for multiplication* <axiom-multiplication>
@@ -220,6 +222,7 @@ greatest-lower-bound property.
       such that
 
       $ x⋅(1 \/ x) = 1 $
+
       <axiom-multiplication-m5>
 
   - *(D) The distributive law* <axiom-distributive>
@@ -309,12 +312,12 @@ $y ≠ 0$, then $x y ≠ 0$.
       #link(<cut-property-1>)[property 1 of cut].
 
       // There is a problem with normal form reference, text cannot be referenced @see:
-      // 
+      //
       // https://typst.app/docs/reference/model/ref/
       //
       // and its solution is to use #link rather than #ref
 
-    + Pick $p ∈ γ$, then $p ∈ α_1$ for some $α_1 ∈ A$. #content-highlight[If $q < p$, 
+    + Pick $p ∈ γ$, then $p ∈ α_1$ for some $α_1 ∈ A$. #content-highlight[If $q < p$,
       then $q ∈ α_1$, hence $q ∈ γ$]. This proves the #link(<cut-property-2>)[property 2].
 
     + If $r ∈ α_1$ is so chosen that $r > p$, we see that $r ∈ γ$ since $α_1 ⊂ γ$ and therefore
@@ -333,9 +336,9 @@ $y ≠ 0$, then $x y ≠ 0$.
     cut of $ℚ$. We verify that *the axioms for addition* hold in $ℝ$, with $0^*$ playing
     the role of $ℚ$.
 
-    - #link(<axiom-addition-a1>)[(A1)] We have to show that $α + β$ is a cut. Because 
+    - #link(<axiom-addition-a1>)[(A1)] We have to show that $α + β$ is a cut. Because
       $ℚ$ is a ordered field, so for every $r ∈ α$ and $s ∈ β$, $r + s ∈ ℚ$, that's
-      to say $α + β ⊆ ℚ$ and it's not empty. Take $r' ∉ α$ and $s' ∉ β$. Then 
+      to say $α + β ⊆ ℚ$ and it's not empty. Take $r' ∉ α$ and $s' ∉ β$. Then
       $r' + s' > r + s$ for all choices of $r ∈ α$ and $s ∈ β$. Thus $r' + s' ≠ α + β$.
       So $α + β ≠ ℚ$. It follows that $α + β$ has #link(<cut-property-1>)[property 1 of cut].
 
@@ -403,8 +406,8 @@ $y ≠ 0$, then $x y ≠ 0$.
         that's to prove
 
         $ n > (r ⋅ q) / (s ⋅ p) $
-        
-        let $n = display(⌊(r ⋅ q) / (s ⋅ p)⌋ + 1)$ and the archimedean property 
+
+        let $n = display(⌊(r ⋅ q) / (s ⋅ p)⌋ + 1)$ and the archimedean property
         of $ℚ$ is proved.
       ]
 ]

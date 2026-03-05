@@ -1,13 +1,13 @@
-#import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
 #import "/templates/theorem.typ": *
 #import "/templates/color.typ" as color
 
-#show: book-page.with(title: "Modern Cryptography (1): Introduction")
+#show: book-page.with(title: "Exc (1): Maximum Product Over Partitions Into Distinct Parts")
 #show: thmrules.with(qed-symbol: $square$)
 
-#show: set text(fill: color.content)
+#show: set text(fill: color.content, font: "C059", size: 12pt)
 #show: set page(
   fill: color.background,
   numbering: "1"
@@ -17,6 +17,7 @@
   it
 }
 #show: set math.cases(gap: 1em)
+#show math.equation.where(block: true): set text(size: 14pt)
 
 #let content-highlight(content) = box(
   content,
@@ -43,8 +44,8 @@ variant of the problem that requires *all integers in the sum to be distinct*.
   If all inequalities between the parts are strict, we have a partition of $n$
   into distinct parts. Hence a partition of $n$ into distinct part is a way of
   writing $n$ as a sum of distinct positive integers, disregarding the order of
-  the summands. If the order of the summands is relevant, instead of partitions
-  we have *compositions*. And if we allow some summands to be zero, we get 
+  the summands. And if the order of the summands is relevant, instead of partitions
+  we have *compositions*. And if we allow some summands to be zero, we get
   *week compositions*.
 
   More formally, a *week composition* of $n$ into $k$ parts is an ordered $k$-
@@ -61,7 +62,7 @@ $2 ≤ p < q$, implies that *a longer partition is preferred over a short one*.
 Hence the product of parts will be maximized by long partitions that do not
 contain $1$ as a part.
 
-#theorem(number: "1.2")[ 
+#theorem(number: "1.2")[
   Let $a$ and $l$ be positive integers greater than $1$, and let $μ$ be a weak
   partition of $l$ into $l$ parts such that all members $(a + i - 1 + μ_i)$ are
   distinct, where $1 ≤ i ≤ l$, then
@@ -116,7 +117,7 @@ contain $1$ as a part.
 ]
 
 #theorem(number: "1.3")[
-  Let $n > 1$ be a positive integer and denote $T_m = binom(m + 1, 2) = 
+  Let $n > 1$ be a positive integer and denote $T_m = binom(m + 1, 2) =
   m(m + 1) / 2$. Then there are unique positive integers $m$ and $l$ such that
   $n = T_m + l$.
 ]
@@ -126,11 +127,11 @@ contain $1$ as a part.
   integer so that $T_m ≤ n$. So there are a unique $l = n - binom(m + 1, 2)$.
 ]
 
-= 2 Main Result 
+= 2 Main Result
 
 #theorem(number: "2.1")[
   Let $n ≥ 2$ be a positive integer and let $m, l ∈ ℕ$ such that $n = T_m + l$,
-  where $T_m$ denotes the $m$-th triangular number, and here 
+  where $T_m$ denotes the $m$-th triangular number, and here
   $m = floor((sqrt(8 n + 1) - 1) / 2)$. Then the maximum value $a_n$
   of the product of parts of a partition of $n$ into distinct parts is given by
 

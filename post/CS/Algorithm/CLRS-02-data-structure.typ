@@ -1,4 +1,4 @@
-#import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
 #import "/templates/theorem.typ": *
@@ -7,8 +7,9 @@
 #show: book-page.with(title: "CLRS (2): Data Structure")
 #show: thmrules.with(qed-symbol: $square$)
 
-#show: set text(fill: color.content)
-#set page(fill: color.background)
+#show: set text(fill: color.content, font: "C059", size: 12pt)
+#show: set page(fill: color.background)
+#show math.equation.where(block: true): set text(size: 14pt)
 
 #align(center, text(17pt)[
   = CLRS (2): Data Structure
@@ -26,11 +27,11 @@ which is filled from the left up to a point.
 An array $upright("A")$ that represents a heap is an object with two attributes:
 $upright("A")."length"$ gives the number of elements in the array, and $upright("A")
 ."heap-size"$, which represents how many elements in the heap are stored within
-array $upright("A")$. 
+array $upright("A")$.
 
-Although $upright("A")[1..upright("A")."length"-1]$ may contain numbers, only the elements 
+Although $upright("A")[1..upright("A")."length"-1]$ may contain numbers, only the elements
 in $upright("A") [1..upright("A")."heap-size"-1]$, where
-$0≤upright("A")."heap-size"≤upright("A")."length"$, are valid elements of the heap. The 
+$0≤upright("A")."heap-size"≤upright("A")."length"$, are valid elements of the heap. The
 root of the tree is $upright("A")[0]$.
 
 #align(center)[
@@ -94,7 +95,7 @@ node:
     + ▷ notice that here $i$ is 0-based.
     + *procedure* #smallcaps("Parent") *return* $display(⌊ (i - 1) / 2 ⌋)$
     + *procedure* #smallcaps("Left-Child") *return* $2i + 1$
-    + *procedure* #smallcaps("Right-Child") *return* $2i + 2$
+    + *procedure* #smallcaps("Right-Child") *return* $2 + 2$
   ]
 )
 
@@ -107,7 +108,7 @@ values in the nodes satisfy a *heap property*.
 
 For the heapsort algorithm, we use max-heap. Min-heap commonly implement priority queues.
 Viewing a heap as a tree, we define the *height* of a node in a heap to be the number of
-edges on the longest simple downward path from the node to a leaf, and we define the 
+edges on the longest simple downward path from the node to a leaf, and we define the
 height of the heap to be the height of its root. Its height is $Θ(lg n)$.
 
 = 1.2 Maintaining the Heap Property

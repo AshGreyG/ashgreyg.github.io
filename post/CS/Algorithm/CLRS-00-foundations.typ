@@ -1,4 +1,4 @@
-#import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
 #import "/templates/theorem.typ": *
@@ -7,7 +7,7 @@
 #show: book-page.with(title: "CLRS (0): Foundations")
 #show: thmrules.with(qed-symbol: $square$)
 
-#show: set text(fill: color.content)
+#show: set text(fill: color.content, font: "C059", size: 12pt)
 #show: set page(
   fill: color.background,
   numbering: "1"
@@ -16,6 +16,7 @@
   set text(fill: color.content-reference-link)
   it
 }
+#show math.equation.where(block: true): set text(size: 14pt)
 
 #let content-highlight(content) = box(
   content,

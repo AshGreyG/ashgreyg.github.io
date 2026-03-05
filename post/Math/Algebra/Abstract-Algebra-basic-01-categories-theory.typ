@@ -1,4 +1,4 @@
-#import "@preview/fletcher:0.5.3" as fletcher: diagram, edge, node
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, edge, node
 #import "/book.typ": book-page
 #import "/templates/pseudocode.typ": pseudocode
 #import "/templates/theorem.typ": *
@@ -9,10 +9,10 @@
   box($cal(it)$),
 )
 
-#show: book-page.with(title: "Real Analysis (1): Number Systems")
+#show: book-page.with(title: "Abstract Algebra (1): Categories Theory")
 #show: thmrules.with(qed-symbol: $square$)
 
-#show: set text(fill: color.content)
+#show: set text(fill: color.content, font: "C059", size: 12pt)
 #show: set page(
   fill: color.background,
   numbering: "1"
@@ -21,6 +21,7 @@
   set text(fill: color.content-reference-link)
   it
 }
+#show math.equation.where(block: true): set text(size: 14pt)
 
 #let content-highlight(content) = box(
   content,
@@ -68,7 +69,7 @@ element of $T$. In symbols:
 
 $ S ⊆ T $
 
-$S ⊂ T$ means it does not exclude that $S$ and $T$ may be equal, and $S 
+$S ⊂ T$ means it does not exclude that $S$ and $T$ may be equal, and $S
 ⊊ T$ means $S$ is properly contained in $T$, that is $S ⊂ T$ and
 $S != T$. $S ⊆ T$ means that
 
@@ -96,11 +97,11 @@ is $S$ is finite.
 + $∩$: the *intersection*;
 + $⧵$: the *difference*;
 + $⨿$: the  *disjoint union*;
-+ $×$: the *Cartesian product*;
++ $×$: the *Cartesian product*.
 
 The output of disjoint unions, Cartesian product operations may not be defined as a
 *set*, rather as a set *up to isomorphisms of sets*, that is up to bijection. Roughly
-speaking, the *disjoint-union* of two sets $S$ and $T$ is a set $S ⨿ T$ 
+speaking, the *disjoint-union* of two sets $S$ and $T$ is a set $S ⨿ T$
 obtained by first producing $S'$ and $T'$ which are generated from the original sets
 $S$ and $T$ (if $S ∪ T != ∅$), and they satisfy the property that
 $S' ∪ T' = ∅$. We have $|S'| = |S|$ and $|T'| = |T|$, so $|S ⨿ T| = |S| + |T|$
@@ -111,7 +112,7 @@ the set whose elements are the *ordered pairs* $(s,t)$ of elements of $S$ and $T
 $ S × T := {(s,t) "such that" s ∈ S, t ∈ T} $
 
 The product $A × A$ of a set by itself is often denoted $A^2$. If $S$ and $T$ are
-finite sets, clearly $|S × T| = |S| × |T|$
+finite, clearly $|S × T| = |S| × |T|$
 
 Also note that we can use products to obtain explicit the isomorphisms of sets as needed
 for the disjoint union: for example, we could let
@@ -120,21 +121,21 @@ $ S' = {0} × S, T' = {1} × T $
 
 guaranteeing that $S'$ and $T'$ are disjoint.
 
-Those operations can be extended to operations on whole families of sets. 
+Those operations can be extended to operations on whole families of sets.
 If $S_1, ..., S_n$ are sets, we write
 
 $ inter.big ^n_(i=1) S_i = S_1 ∩ S_2 ∩ ... ∩ S_n $
 
 we use $scr(S)$ to denote a set of sets and we have
 
-$ 
+$
   union.big_(S ∈ scr(S))S, space.en inter.big_(S ∈ scr(S))S, space.en
   ∐_(S ∈ scr(S))S, space.en ∏_(S ∈ scr(S))S
 $
 
-// Unfortunately, ∪ and ∩ can't be recognized in displayed math environment
-
 for the union, intersection, disjoint union. product of all sets in $scr(S)$.
+
+// Unfortunately, ∪ and ∩ can't be recognized in displayed math environment
 
 = 1.4 Equivalence relations, partitions, quotients
 
@@ -180,8 +181,8 @@ then the equivalence classes form a partition $scr(S)_∼$ of $S$.
   Consider an element $[a]_∼$ of $scr(S)_∼$. By the reflexivity of equivalence relation,
   we know $[a]_∼$ is not empty. Consider $a$ and $b$ are two different elements of $S$,
   and $a ≁ b$. Using contradiction to prove the proposition: consider there is an element
-  $x ∈ [a]_∼ ∩ [b]_∼$, then $x ∼ a$ and $x ∼ b$. By the transitivity of equivalence 
-  relation, we know $a ∼ b$, and this is a contradiction. Hence all the elements of 
+  $x ∈ [a]_∼ ∩ [b]_∼$, then $x ∼ a$ and $x ∼ b$. By the transitivity of equivalence
+  relation, we know $a ∼ b$, and this is a contradiction. Hence all the elements of
   $scr(S)_∼$ are disjoint. For $x ∈ S$, we know $x ∈ [x]_∼ ∈ scr(S)_∼$, then
 
   $ union.big_([a]_∼ ∈ scr(S)_∼)[a]_∼ = S $
@@ -209,7 +210,7 @@ equivalent.
             (∃ T_2 ∈ scr(S), b ∈ T_2 ∧ c ∈ T_2) \
        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (b ∈ T_1 ∩ T_2) ∧ (c ∈ T_2) \
        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 ∩ T_2 != ∅) \
-       => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 = T_2) \ 
+       => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_2) ∧ (T_1 = T_2) \
        => & ∃ T_1, T_2 ∈ scr(S), (a ∈ T_1) ∧ (c ∈ T_1) \
       <=> & a ∼ c $
 
@@ -217,12 +218,12 @@ equivalent.
 
   + $scr(S) ⊆ scr(S)_∼$: Note that
 
-    $ T ∈ scr(S) 
+    $ T ∈ scr(S)
       => & ∀ a, b ∈ T, a ∼ b \
      <=> & T ∈ scr(S)_∼ $
-    
-      The first deduction is from the our definition of relation $∼$.
-  
+
+    The first deduction is from the our definition of relation $∼$.
+
   + $scr(S)_∼ ⊆ scr(S)$: Given any $[a]_∼ ∈ scr(S)_∼$, there exists $T ∈ scr(S)$
     such that $a ∈ T$, we have
 
@@ -230,13 +231,13 @@ equivalent.
 
     So we get $T ⊆ [a]_∼$. Also we have
 
-    $ a' ∈ [a]_∼ 
+    $ a' ∈ [a]_∼
       <=> & ∃ P ∈ scr(S), (a ∈ P) ∧ (a' ∈ P) \
-       => & ∃ P ∈ scr(S), (a ∈ T ∩ P) ∧ (a' ∈ P) \ 
+       => & ∃ P ∈ scr(S), (a ∈ T ∩ P) ∧ (a' ∈ P) \
        => & ∃ P ∈ scr(S), (T ∩ P != ∅) ∧ (a' ∈ P) \
        => & ∃ P ∈ scr(S), (T = P) ∧ (a' ∈ P) \
        => & a' ∈ T $
-    
+
     So we get $[a]_∼ ⊆ T$, so $[a]_∼ = T ∈ scr(S)$. Therefore $scr(S)_∼ ⊆ scr(S)$.
     We can finally conclude that $scr(S)$ and $scr(S)_∼$ is equal.
 ]
@@ -261,7 +262,7 @@ A function is the subset of $A × B$:
 
 $ Γ_f := {(a,b) ∈ A × B | b = f(a)} ⊆ A × B $
 
-This set $Γ_f$ is the *graph* of $f$. Not all subsets $Γ ⊆ A × B$ correspond to 
+This set $Γ_f$ is the *graph* of $f$. Not all subsets $Γ ⊆ A × B$ correspond to
 functions, only subsets that satisfy
 
 $ (∀ a ∈ A)(∃! b ∈ B) space.en (a,b) ∈ Γ_f $
@@ -286,7 +287,7 @@ in $A × A$: the *identity function* on $A$:
 $ "id"_A : A -> A $
 
 More generally, the inclusion of any subset $S$ of a set $A$ determines a function $S -> A$, simply
-sending every element $s$ of $S$ to itself in $A$. 
+sending every element $s$ of $S$ to itself in $A$.
 
 If $S$ is a subset of $A$, we denote $f(S)$ the subset of $B$ defined by
 
