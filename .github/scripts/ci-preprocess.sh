@@ -13,6 +13,7 @@ echo "Removing local font configurations..."
 find ./post -name "*.typ" -type f -exec sed -i \
   -e 's/#show: set text(fill: color\.content, font: "C059", size: 12pt)/#show: set text(fill: color.content)/' \
   -e '/#show math\.equation\.where(block: true): set text(size: 14pt)/d' \
+  -e '/#show figure\.caption: set text(size: 9pt)/d' \
   {} \;
 
 echo "Pre-processing complete. Files ready for CI build."

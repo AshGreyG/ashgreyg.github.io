@@ -18,6 +18,7 @@
 }
 #show: set math.cases(gap: 1em)
 #show math.equation.where(block: true): set text(size: 14pt)
+#show figure.caption: set text(size: 9pt)
 
 #let content-highlight(content) = box(
   content,

@@ -4,12 +4,26 @@
 #import "/templates/theorem.typ": *
 #import "/templates/color.typ" as color
 
-#show: book-page.with(title: "CLRS (2): Data Structure")
+#show: book-page.with(title: "CLRS (0): Foundations")
 #show: thmrules.with(qed-symbol: $square$)
 
 #show: set text(fill: color.content, font: "C059", size: 12pt)
-#show: set page(fill: color.background)
+#show: set page(
+  fill: color.background,
+  numbering: "1"
+)
+#show link: it => {
+  set text(fill: color.content-reference-link)
+  it
+}
 #show math.equation.where(block: true): set text(size: 14pt)
+#show figure.caption: set text(size: 9pt)
+
+#let content-highlight(content) = box(
+  content,
+  outset: 0.1em,
+  fill: rgb(color.content-highlight)
+)
 
 #align(center, text(17pt)[
   = CLRS (2): Data Structure
