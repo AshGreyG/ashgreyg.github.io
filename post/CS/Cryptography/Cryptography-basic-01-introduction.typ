@@ -210,7 +210,7 @@ all $j$ and then output the value $k$ for which $I_k$ is closest to $0.065$.
           + $n$ ← $sans("length")(upright("M"))$
           + $i$ ← $0$
           + *while* $i < n$ *do*
-            + *for* $j$ *in* $S := {l | l = sans("length")(m), m ∈ sans("ran\")(k)}$
+            + *for* $j$ *in* $S := {l | l = sans("length")(m), m ∈ sans("ran")(k)}$
               *do*
               + ▷ Here set (or list) $S$ consists of different length $s$ of
                 $m_1 ⋯  m_s$ in substitution rules.
