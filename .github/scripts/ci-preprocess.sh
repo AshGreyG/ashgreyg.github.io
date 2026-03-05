@@ -6,25 +6,6 @@ set -e
 
 echo "Pre-processing .typ files for CI build..."
 
-# Backup the post directory
-TEMP_DIR=$(mktemp -d)
-BACKUP_DIR="$TEMP_DIR/post_backup"
-
-echo "Backing up post directory to $BACKUP_DIR"
-cp -r ./post "$BACKUP_DIR"
-
-# Function to restore original files on exit
-cleanup() {
-  echo "Restoring original files..."
-  rm -rf ./post
-  cp -r "$BACKUP_DIR" ./post
-  rm -rf "$TEMP_DIR"
-  echo "Cleanup complete"
-}
-
-# Register cleanup function to run on exit
-trap cleanup EXIT
-
 # Remove local font size configurations from all .typ files
 echo "Removing local font configurations..."
 
